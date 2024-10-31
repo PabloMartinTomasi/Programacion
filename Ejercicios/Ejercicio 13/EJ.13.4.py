@@ -1,12 +1,23 @@
 import random
 import numpy as np
 
+
 numeros = [random.randint (-50, 50) for i in range(15)]
 with open("valores.txt", "w") as archivo:
-    archivo.write(f"{numeros}\n")
+    for numero in numeros:
+        archivo.write(f"{numero}\n")
+       
 with open("valores.txt", "r") as archivo:
-    lineas = archivo.read()
+    contenido = archivo.readlines()
 
-array = np.array([int(linea.strip()) for linea in lineas])
-positivos = np.array[array > 0]
-print(positivos)
+
+array = np.array([int(line.strip()) for line in contenido])
+positivos = array[array > 0]
+
+
+with open("valores_positivos.txt", "w") as archivo:
+    for numero in positivos:
+        archivo.write(f"{numero}\n")
+
+
+print(f"Números positivos:{positivos}")
