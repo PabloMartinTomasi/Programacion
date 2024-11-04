@@ -1,9 +1,6 @@
 import numpy as np
 from colorama import Fore, Back, Style
 
-with open("partida_comenzada.txt", "r") as archivo:
-    contenido = archivo.readlines()
-
 tabla = np.zeros((20, 20))
 tabla_sin_resolver = np.zeros((20, 20))
         
