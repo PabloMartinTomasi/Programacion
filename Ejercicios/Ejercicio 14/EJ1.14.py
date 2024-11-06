@@ -1,14 +1,18 @@
 import numpy as np
 from colorama import Fore, Back, Style
 
-def partida_guardada():
-    with open("partida_comenzada.txt", "r") as archivo_lectura:
-        contenido = archivo_lectura.read()
-    with open("partida_comenzada.txt", "w") as archivo_escritura:
-        archivo_escritura.write(contenido)
-
 tabla = np.zeros((20, 20))
 tabla_sin_resolver = np.zeros((20, 20))
+
+def partida_cargada():
+    try:
+        with open("partida_comenzada.txt", "r") as archivo:
+            data = archivo.readlines()
+            tabla_sin_resolver[:,:] = np.array([list(map(int, line.strip().slipt)) for line in data])
+            print("Partida guardada encontrada.")
+            return True
+    except FileNotFoundError: #Si no se a encontrado ninguna partida guardad, se inicia una nueva
+        return False
 
 def colocar_barco(fila, columna, longitud, direccion):
     if direccion == "horizontal":
@@ -68,46 +72,36 @@ def barco_de_cuatro():
                 for i in range(4):
                     tabla[fila + i, columna] = 1
             break
+        
+def menu():
+    print(Fore.RED+ "Menu: \n1-Guardar \n2-Salir")
+    print(Style.RESET_ALL)
+    opcion = int(input("Seleciona una opcion del menu:"))
+    return opcion
 
 def partida_pro():
+    if not partida_cargada():
+        colocar_barco(barco_de_dos(), barco_de_tres(), barco_de_cuatro())
+        print("Empezando partida.")
+    print(f"Aqui tienes la partida con los barcos: \n{tabla}")
+    print(f"Aqui tienes la partida sin los barcos: \n{tabla_sin_resolver}")
     intentos = 0
-    print(f"Aqui tienes la tabla con todo \n{tabla}")
-    print(f"Aqui tienes el tablero: \n{tabla_sin_resolver} \nIntenta unidir los 3 barcos")
-    while True:
-        filaa = int(input("Pon las coordenadas de una fila (o 111 para poder tener el menu):"))
-        if filaa == 111: #Enseñar el menu
-            print(Fore.RED+ "Menu: \n1-Guardar \n2-Salir")
-            print(Style.RESET_ALL)
-            Menu = int(input("Seleciona una opcion del menu:"))
-            if Menu == 1: #Guardar partida
-                with open("partida_comenzada.txt", "w") as archivo:
-                    archivo.write(f"{tabla_sin_resolver}")
-                filaa = int(input("Pon las coordenadas de una fila:"))
-            elif Menu == 2: #Salir de la partida
-                print("Saliendo de la partida")
-                break
-            else:
-                print("Porfavor seleciona una opcion del menu!")        
-        columnaa = int(input("Pon las coordenadas de una columna:"))
+    while barcos < 9:
+        print(f"Aqui tienes el tablero con los barcos: \n{tabla}")
+        print(f"Aqui tienes el tablero sin los barcos: \{tabla_sin_resolver}")
+        try:
+            filaa = int(input("Escribe la fila que quieres atacar (o 111 para poder ver el menu):"))
+            if filaa == 1:
+                opcion = menu()
+                if opcion == 1:
+                    
         
-        match tabla[filaa -1, columnaa -1]:
-            case 2:
-                print(Fore.GREEN+"Ya has probado esa posicion. Vuelve a intentarlo con otra posicion")
-                print(Style.RESET_ALL)
-            case 0:
-                print(Fore.BLUE+"Agua")
-                print(Style.RESET_ALL)
-                intentos = intentos + 1
-                tabla_sin_resolver [filaa -1, columnaa -1] = 2
-                print(tabla_sin_resolver)
-            case 1:
-                print(f"¡Has hundido un barco! Despues de {intentos} intentos")
-                intentos = intentos + 1
-                print(tabla)
-                break
+        
 
-barco_de_dos()
-barco_de_tres()
-barco_de_cuatro()
-partida_guardada()
 partida_pro() 
+
+
+
+
+
+
