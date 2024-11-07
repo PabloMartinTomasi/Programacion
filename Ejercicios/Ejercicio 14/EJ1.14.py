@@ -72,36 +72,28 @@ def barco_de_cuatro():
                 for i in range(4):
                     tabla[fila + i, columna] = 1
             break
-        
-def menu():
-    print(Fore.RED+ "Menu: \n1-Guardar \n2-Salir")
-    print(Style.RESET_ALL)
-    opcion = int(input("Seleciona una opcion del menu:"))
-    return opcion
 
-def partida_pro():
-    if not partida_cargada():
-        colocar_barco(barco_de_dos(), barco_de_tres(), barco_de_cuatro())
-        print("Empezando partida.")
-    print(f"Aqui tienes la partida con los barcos: \n{tabla}")
-    print(f"Aqui tienes la partida sin los barcos: \n{tabla_sin_resolver}")
+def partida():
     intentos = 0
-    while barcos < 9:
-        print(f"Aqui tienes el tablero con los barcos: \n{tabla}")
-        print(f"Aqui tienes el tablero sin los barcos: \{tabla_sin_resolver}")
-        try:
-            filaa = int(input("Escribe la fila que quieres atacar (o 111 para poder ver el menu):"))
-            if filaa == 1:
-                opcion = menu()
-                if opcion == 1:
-                    
-        
-        
-
-partida_pro() 
-
-
-
-
-
+    print(f"Aqui tienes el tablero con los barcos: \n{tabla}")
+    print(f"Aqui tienes el tablero: \n{tabla_sin_resolver} \nIntenta unidir el barco")
+    while True:
+        filaa = int(input("Pon las coordenadas de una fila (o 111 para poder ver el menu):"))
+        if filaa == 111:
+            print(Fore.RED+"Menu: \n1- Guardar \n2- Salir")
+            print(Style.RESET_ALL)
+            opcion = int(input("Seleciona una opcion del menu:"))
+            if opcion == 1: #Guardar partida
+                with open("partida_comenzada.txt", "w") as archivo:
+                    archivo.write(f"{tabla_sin_resolver}")
+                print("Partida guardada")
+                continue
+            elif opcion == 2: #Salir de la partida
+                print("Saliendo de la partida")
+                break
+            else:
+                print("Seleciona una opcion del menu")
+        columnaa = int(input("Pon las coordenadas de una columna:"))
+            
+partida()
 
