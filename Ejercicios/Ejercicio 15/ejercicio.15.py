@@ -1,11 +1,13 @@
 import conexion_bd as bd
+from colorama import Fore, Back, Style
 
 conexion = bd.conectar("supermercado")
 cursor = conexion.cursor()
 
 while True:
     try:
-        print("===Gestion de Categorias=== \nSeleccione una opcion: \n1. Crear nueva categoria \n2. Leer categorias existentes \n3. Actualizar una categoria \n4. Eliminar una categoria \n5. Salir")
+        print(Fore.RED+"===Gestion de Categorias=== \nSeleccione una opcion: \n1. Crear nueva categoria \n2. Leer categorias existentes \n3. Actualizar una categoria \n4. Eliminar una categoria \n5. Salir")
+        print(Style.RESET_ALL)
         menu = int(input("Seleciona una opcion del Menu:"))
         if menu == 1: #Si usuario seleciona opcion 1
             idcategoria = int(input("Dame el idcategoria de tu producto:"))
@@ -14,24 +16,28 @@ while True:
             consulta = """INSERT INTO categoria(idcategoria, categoria) VALUES (%s, %s)"""
             cursor.execute(consulta, nueva_categoria)
             conexion.commit()
-            print(f"[Mensaje de confirmacion] La categoria {categoria} ha sido creada con éxito.")
+            print(Fore.GREEN+ f"[Mensaje de confirmacion] La categoria {categoria} ha sido creada con éxito.")
+            print(Style.RESET_ALL)
 
         elif menu == 2: #Si usuario seleciona opcion 2
             consulta = """SELECT idcategoria, categoria FROM categoria"""
             cursor.execute(consulta)
             categorias = cursor.fetchall()
-            print("Listado de Categorias:")
-            for categiria in categorias:
+            print(Fore.BLUE+"Listado de Categorias:")
+            print(Style.RESET_ALL)
+            for categoria in categorias:
                 idcategoria, nombre_categoria = categoria
-                print(f"{idcategoria} - {nombre_categoria}")
+                print(Fore.BLUE+ f"{idcategoria} - {nombre_categoria}")
+                print(Style.RESET_ALL)
 
         elif menu == 3: #Si usuario seleciona opcion 3
             idcategoriaa = int(input("Ingresa el ID de la categoria a actualizar:"))
             categoriaa = input("Ingresa el nuevo nombre de la categoria:")
-            consulta = """UPDATE categoria SET idcategoria = %s WHERE categoria = %s"""
+            consulta = """UPDATE categoria SET categoria = %s WHERE idcategoria = %s"""
             cursor.execute(consulta, (categoriaa, idcategoriaa))
             conexion.commit()
-            print(f"[Mensaje de confirmación] La categoría con ID {idcategoriaa} ha sido actualizada a {categoriaa}")
+            print(Fore.CYAN+ f"[Mensaje de confirmación] La categoría con ID {idcategoriaa} ha sido actualizada a {categoriaa}")
+            print(Style.RESET_ALL)
 
         elif menu == 4: #Si usuario seleciona opcion 4
             idCategoriaa = int(input("Ingrese el ID de la categoria a eliminar:"))
