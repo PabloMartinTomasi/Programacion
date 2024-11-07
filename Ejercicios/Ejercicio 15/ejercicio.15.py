@@ -47,12 +47,14 @@ while True:
             print(f"[Mensaje de confirmación] La categoría con ID {idCategoriaa} ha sido eliminada.")
 
         elif menu == 5: #Si usuario seleciona opcion 5
-            print("[Mensaje] Saliendo de la gestión de categorías. ¡Hasta pronto!")
+            print(Fore.MAGENTA+ "[Mensaje] Saliendo de la gestión de categorías. ¡Hasta pronto!")
+            print(Style.RESET_ALL)
             cursor.close()
             conexion.close()
             break
         else:
-            print("Seleciona una opcion del menu")
+            print(Fore.YELLOW+ "Seleciona una opcion del menu")
+            print(Style.RESET_ALL)
             continue
     except ValueError:
         print(ValueError)
