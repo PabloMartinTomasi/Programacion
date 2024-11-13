@@ -21,6 +21,7 @@ def Visualizar_busqueda_clientes():
                 idcliente, dni, nombre, apellido, tlf, direccion, ciudad = cliente
                 print(Fore.BLUE+ f"{idcliente} - {dni} - {nombre} - {apellido} - {tlf} - {direccion} - {ciudad}")
                 print(Style.RESET_ALL)
+
         elif menu == 2: #Si se seleciona la opcion 2
             idcliente = int(input("Ingresa el ID del cliente que quieres buscar:")) #Solicitamos que introduzcas el id del cliente que quieres buscar
             consulta = f"""SELECT idcliente, dni, nombre, apellido, tlf, direccion, ciudad FROM cliente WHERE idcliente = {idcliente}"""

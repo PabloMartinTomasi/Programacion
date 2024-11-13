@@ -41,6 +41,17 @@ def realizar_compra ():
         print (Fore.YELLOW+ f"[Mensaje de confirmacion] Tu id pedido es {idpedido}.") #Le damos el id del pedido al cliente
         print(Style.RESET_ALL)
         
+        with open("total_pedido.txt", "w") as archivo: #Guardamos en un archico externo el total del pedido del cliente
+            archivo.write(str(total) + "\n")
+        
+        with open("total_pedido.txt", "r") as archivo:
+            contenido = archivo.readlines()
+
+        array = np.sum([float(line.strip()) for line in contenido])
+        print(f"El total de esta compra es de: {array}") #Imprimimos al cliente cuanto va a tener que pagar por su pedido
+        
+        
+        
         if cursor:
             cursor.close()
         if conexion:

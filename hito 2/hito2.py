@@ -1,7 +1,7 @@
 import conexion_bd as bd
 import registro_cliente as RC
 import Visualizar_busqueda_clientes as VBC
-import realizar_compra as RCC
+import Realizar_compra as RCC
 import seguimiento_compra as SC
 from colorama import Fore, Back, Style
 
