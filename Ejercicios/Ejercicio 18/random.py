@@ -7,9 +7,9 @@ cursor = conexion.cursor()
 
 try:
     idpedido = int(input("Introduce el idpedido que quieres actualizar:"))
-    idcliente = input("Dame el idcliente de tu cliente: ")
+    idcliente = input("Dame el idcliente de tu cliente:")
     
-    consulta = """UPDATE pedido SET idcliente = %s, fechapedido=%s, fechaentrega = %s WHERE idpedido = %s"""
+    consulta = """UPDATE pedido SET idcliente = %s WHERE idpedido = %s"""
     cursor.execute(consulta, (idpedido, idcliente))
     conexion.commit()
     
@@ -19,7 +19,6 @@ try:
     print(Fore.BLUE+"Listado de productos:")
     print(Style.RESET_ALL)
     for idproducto, nombre, idcategoria, medida, precio, stock  in productos:
-        i
         print(Fore.BLUE + f"{idproducto} - {nombre} - {idcategoria} - {medida} - {precio} - {stock}")
         print(Style.RESET_ALL)
     
