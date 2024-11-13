@@ -18,7 +18,7 @@ def realizar_compra ():
             print(Fore.BLUE+ f"{idproducto} - {nombre} - {medida} - {precio} - {stock}")
             print(Style.RESET_ALL)
         
-        idcliente = int(input("Introsuce tu id cliente:")) #Solicitamos al cliente su id
+        idcliente = int(input("Introduce tu id cliente:")) #Solicitamos al cliente su id
         fecha = input("Introduce la fecha actual:") #Solicitamos al cliente la fecha actual
         consulta_pedido = """INSERT INTO pedido (idcliente, fecha) VALUES (%s, %s)""" #Insertamos a la lista pedido los datos que hemos solicitado al cliente 
         cursor.execute(consulta_pedido, (idcliente, fecha))
