@@ -1,5 +1,6 @@
 import conexion_bd as bd
 import numpy as np
+from datetime import datetime
 from colorama import Fore, Back, Style
 
 
@@ -19,7 +20,7 @@ def realizar_compra ():
             print(Style.RESET_ALL)
         
         idcliente = int(input("Introduce tu id cliente:")) #Solicitamos al cliente su id
-        fecha = input("Introduce la fecha actual:") #Solicitamos al cliente la fecha actual
+        fecha = datetime.now() #Ponemos la fecha en el que se esta haciendo el pedido
         consulta_pedido = """INSERT INTO pedido (idcliente, fecha) VALUES (%s, %s)""" #Insertamos a la lista pedido los datos que hemos solicitado al cliente 
         cursor.execute(consulta_pedido, (idcliente, fecha))
         idpedido = cursor.lastrowid #Le generamos al cliente su nuevo idpedido
@@ -44,13 +45,11 @@ def realizar_compra ():
         with open("total_pedido.txt", "w") as archivo: #Guardamos en un archico externo el total del pedido del cliente
             archivo.write(str(total) + "\n")
         
-        with open("total_pedido.txt", "r") as archivo:
+        with open("total_pedido.txt", "r") as archivo: #Leemos cuanto va a tener que pagar el cliente
             contenido = archivo.readlines()
 
         array = np.array([float(line.strip()) for line in contenido])
         print(f"El total de esta compra es de: {array}") #Imprimimos al cliente cuanto va a tener que pagar por su pedido
-        
-        
         
         if cursor:
             cursor.close()

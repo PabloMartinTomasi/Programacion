@@ -41,6 +41,6 @@ def Visualizar_busqueda_clientes():
             if conexion:
                 conexion.close()
             break
-        else:
-            print("Porfavor seleciona una opcion del menu")
+        else: #Si el cliente seleciona una opcion que no esta en el menu
+            print("Seleciona una opcion del menu")
             continue
