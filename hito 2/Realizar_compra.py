@@ -47,7 +47,7 @@ def realizar_compra ():
         with open("total_pedido.txt", "r") as archivo:
             contenido = archivo.readlines()
 
-        array = np.sum([float(line.strip()) for line in contenido])
+        array = np.array([float(line.strip()) for line in contenido])
         print(f"El total de esta compra es de: {array}") #Imprimimos al cliente cuanto va a tener que pagar por su pedido
         
         
