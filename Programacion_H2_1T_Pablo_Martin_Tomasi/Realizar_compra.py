@@ -36,23 +36,17 @@ def realizar_compra ():
             consulta_precio = """SELECT precio FROM producto WHERE idproducto = %s""" #Encontramos el precio total de cada  producto mas la cantidad que ha elegido
             cursor.execute(consulta_precio, (idproducto,))
             precio_unidad = cursor.fetchone()[0]
-            total = precio_unidad * cantidad
+            total = precio_unidad * cantidad 
             cursor.execute(consulta_detalle, (idpedido, idproducto, cantidad, total))
         conexion.commit()
         print (Fore.YELLOW+ f"[Mensaje de confirmacion] Tu id pedido es {idpedido}.") #Le damos el id del pedido al cliente
         print(Style.RESET_ALL)
         
-        with open("total_pedido.txt", "w") as archivo: #Guardamos en un archico externo el total del pedido del cliente
-            archivo.write(str(total) + "\n")
-        
-        with open("total_pedido.txt", "r") as archivo: #Leemos cuanto va a tener que pagar el cliente
-            contenido = archivo.readlines()
-
+        with open("total_pedido.txt", "r+") as archivo: #Guardamos en un archico externo el total del pedido del cliente
+            archivo.writelines(str(total) + "\n")
+            contenido = archivo.readlines() #Leemos cuanto va a tener que pagar el cliente
+                
         array = np.array([float(line.strip()) for line in contenido])
         print(f"El total de esta compra es de: {array}") #Imprimimos al cliente cuanto va a tener que pagar por su pedido
         
-        if cursor:
-            cursor.close()
-        if conexion:
-            conexion.close()
         break

@@ -36,10 +36,6 @@ def Visualizar_busqueda_clientes():
                 print(Fore.BLUE+ f"{idcliente} - {dni} - {nombre} - {apellido} - {tlf} - {direccion} - {ciudad}") #Le enseñamos al cliente los datos del cliente con el id que ha puesto
                 print(Style.RESET_ALL)
         elif menu == 3: #Volvemos al menu princial
-            if cursor:
-                cursor.close()
-            if conexion:
-                conexion.close()
             break
         else: #Si el cliente seleciona una opcion que no esta en el menu
             print("Seleciona una opcion del menu")

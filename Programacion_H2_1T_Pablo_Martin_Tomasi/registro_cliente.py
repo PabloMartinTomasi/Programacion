@@ -22,9 +22,4 @@ def registro_cliente():
         idcliente = cursor.lastrowid #Para generar el id del usuario que se esta creando
         print(Fore.GREEN + f"[Mensaje de confirmacion] El cliente {nombre} ha sido creado con éxito, y su id es {idcliente}.") #Le enseñamos al usuario que cuenta a sido creada, y le enseñamos su id
         print(Style.RESET_ALL)
-        
-        if cursor:
-            cursor.close()
-        if conexion:
-            conexion.close()
         break

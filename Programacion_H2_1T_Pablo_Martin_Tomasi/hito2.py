@@ -24,6 +24,10 @@ while True:
             SC.seguimiento_compra() #Si el cliente seleciona la opcion 4, cuando el 
         elif Menu == 5:
             print("[Mensaje] Saliendo de la gestión. ¡Hasta pronto!")
+            if cursor:
+                cursor.close()
+            if conexion:
+                conexion.close()
             break
         else:
             print(Fore.YELLOW+ "Seleciona una opcion del menu")

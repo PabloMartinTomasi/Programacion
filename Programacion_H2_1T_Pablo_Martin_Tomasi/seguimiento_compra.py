@@ -38,9 +38,4 @@ def seguimiento_compra ():
             idcliente, nombre, apellido, idproducto, nombre_producto, cantidad, precio = pedido
             print (Fore.YELLOW+ f"[Mensaje de confirmacion] {idcliente} - {nombre} - {apellido} - {idproducto} - {nombre_producto} - {cantidad} - {precio}") #Le enseñamos al cliente los datos del pedido que ha realizado y sus datos a el
             print(Style.RESET_ALL)
-            
-        if cursor:
-            cursor.close()
-        if conexion:
-            conexion.close()
         break
