@@ -24,6 +24,7 @@ def realizar_compra ():
         cursor.execute(consulta_pedido, (idcliente, fecha))
         idpedido = cursor.lastrowid #Le generamos al cliente su nuevo idpedido
         consulta_detalle = """INSERT INTO detalle (idpedido, idproducto, cantidad, precio) VALUES (%s, %s, %s, %s)"""
+        cursor.execute(consulta_detalle(idpedido, idproducto, cantidad, precio))
         for producto in productos:
             idproducto = int(input(Fore.GREEN+"Introduce el id producto que deseas comprar(o -1 para acabar):")) #Le solicitamos al cliente que ingrese los id de los productos que desea comprar, y si quiere dejar de añadir productos escribe 111
             if idproducto == -1:
@@ -32,10 +33,6 @@ def realizar_compra ():
             if cantidad <= 0:
                 continue
             print(Style.RESET_ALL)
-            consulta_precio = """SELECT precio FROM producto WHERE idproducto = %s""" #Encontramos el precio total de cada  producto mas la cantidad que ha elegido
-            cursor.execute(consulta_precio, (idproducto,))
-            precio_unidad = cursor.fetchone()[0]
-            total_producto = precio_unidad * cantidad 
         conexion.commit()
         print (Fore.YELLOW+ f"[Mensaje de confirmacion] Tu id pedido es {idpedido}.") #Le damos el id del pedido al cliente
         print(Style.RESET_ALL)
