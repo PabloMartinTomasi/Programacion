@@ -36,6 +36,19 @@ def seguimiento_compra ():
         print(f"Lista de productos del id pedido {idpedido}:")
         for pedido in pedidos:
             idcliente, nombre, apellido, idproducto, nombre_producto, cantidad, precio = pedido
-            print (Fore.YELLOW+ f"[Mensaje de confirmacion] {idcliente} - {nombre} - {apellido} - {idproducto} - {nombre_producto} - {cantidad} - {precio}") #Le enseñamos al cliente los datos del pedido que ha realizado y sus datos a el
+            print (Fore.YELLOW+ f"[Mensaje de confirmacion] idcliente: {idcliente}/ nombre: {nombre}/ apellido: {apellido}/ idproducto: {idproducto}/ nombre del productos: {nombre_producto}/ cantidad: {cantidad}/ precio del producto: {precio}") #Le enseñamos al cliente los datos del pedido que ha realizado y sus datos a el
             print(Style.RESET_ALL)
+            
+            total_producto = np.sum(precio * cantidad) #Sumamos el total de cada producto
+            
+            #Escribimos en un archivo txt cuanto cuesta un producto
+            with open("total_pedido.txt", "w") as archivo:
+                archivo.write(f"El total del producto de {nombre_producto} es de: {total_producto}")
+                
+            # Leemos en el archivo txt el total de un prodcuto
+            with open ("total_pedido.txt", "r") as archivo:
+                contenido = archivo.read()
+            print(contenido)
+        
+        
         break

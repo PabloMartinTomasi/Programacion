@@ -1,5 +1,4 @@
 import conexion_bd as bd
-import numpy as np
 from datetime import datetime
 from colorama import Fore, Back, Style
 
@@ -36,20 +35,9 @@ def realizar_compra ():
             consulta_precio = """SELECT precio FROM producto WHERE idproducto = %s""" #Encontramos el precio total de cada  producto mas la cantidad que ha elegido
             cursor.execute(consulta_precio, (idproducto,))
             precio_unidad = cursor.fetchone()[0]
-            total = precio_unidad * cantidad 
-            array = np.sum(total)
-            cursor.execute(consulta_detalle, (idpedido, idproducto, cantidad, total))
+            total_producto = precio_unidad * cantidad 
         conexion.commit()
         print (Fore.YELLOW+ f"[Mensaje de confirmacion] Tu id pedido es {idpedido}.") #Le damos el id del pedido al cliente
         print(Style.RESET_ALL)
-        
-        with open("total_pedido.txt", "w") as archivo:
-            archivo.write(str(total) + "\n")
-            
-        with open("total_pedido.txt", "r"): #Leemos cuanto va a tener que pagar el cliente
-            total = archivo.readlines()
-            
-        print(f"El total de esta compra es de: {array}") #Imprimimos al cliente cuanto va a tener que pagar por su pedido
-        
-        
+
         break
