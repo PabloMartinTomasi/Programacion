@@ -1,35 +1,37 @@
-import conexion_bd as bd
-import registro_cliente as RC
-import Visualizar_busqueda_clientes as VBC
-import Realizar_compra as RCC
-import seguimiento_compra as SC
+import funcion_clientes as CLI
+import funcion_actividades as ACT
+import funcion_entrenadores as ENT
+import funciones_inscripciones as INS
 from colorama import Fore, Back, Style
 
 
-conexion = bd.conectar("supermercado")
-cursor = conexion.cursor()
 
 while True:
     try:
-        print(Fore.RED+ "===  === \nGestión de pedidos: \n1- Registro de clientes nuevos \n2- Visualizar clientes y obtener datos sobre clientes en concreto \n3- Realizar compra \n4- Seguimiente de una compra \n5- Salir")
+        print(Fore.RED+ "=== Gestión del Centro Deportivo === \n1- Gestión de Clientes \n2- Gestión de Actividades \n3- Gestión de Entrenadores \n4- Gestión de Inscripciones \n5- Salir")
         print(Style.RESET_ALL)
-        Menu = int(input("Seleciona una opcion del Menu:"))
+        Menu = int(input("Seleccione una opción:"))
         if Menu == 1:
-            RC.registro_cliente()
+            CLI.menu_cliente()
+
         elif Menu == 2:
-            VBC.Visualizar_busqueda_clientes()
+            ACT.menu_actividades()
+
         elif Menu == 3:
-            RCC.realizar_compra()
+            ENT.menu_entrenadores()
+
         elif Menu == 4:
-            SC.seguimiento_compra()
+            INS.menu_inscripciones()
+
         elif Menu == 5:
             print("[Mensaje] Saliendo de la gestión. ¡Hasta pronto!")
             break
+        
         else:
             print(Fore.YELLOW+ "Seleciona una opcion del menu")
             print(Style.RESET_ALL)
             continue
-        
+
     except ValueError as ve:
         print(Fore.RED + f"Error: Entrada inválida. Por favor, ingrese un número. ({ve})")
         print(Style.RESET_ALL)
