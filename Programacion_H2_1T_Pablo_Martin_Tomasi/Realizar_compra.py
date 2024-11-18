@@ -31,10 +31,8 @@ def realizar_compra():
             cantidad = int(input(f"Cuanta cantidad del producto {idproducto} deseas comprar:")) #Solicitamos al cliente que ponga la cantidad de productos que quiera
             if cantidad <= 0:
                 continue
+            precio = int(input("Introduce el precio del producto:"))
             print(Style.RESET_ALL)
-            
-            precio_unidad = idproducto
-            precio = precio_unidad * cantidad
             consulta_detalle = """INSERT INTO detalle (idpedido, idproducto, cantidad, precio) VALUES (%s, %s, %s, %s)"""
             cursor.execute(consulta_detalle, (idpedido, idproducto, cantidad, precio))
         conexion.commit()

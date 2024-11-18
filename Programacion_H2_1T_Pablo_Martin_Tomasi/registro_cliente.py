@@ -1,4 +1,6 @@
 import conexion_bd as bd
+from mysql.connector import Error
+import time
 from colorama import Fore, Back, Style
 
 
@@ -14,7 +16,7 @@ def registro_cliente():
         tlf = int(input("Introduce tu numero de telefono:")) #Solicitamos al usuario su tléfono
         direccion = input("Introduce tu direccion:") #Solicitamos al usuario su direccion
         ciudad = input("Introduce tu ciudad:") #Solicitamos al usuario su ciudad donde vive
-        
+            
         nuevo_cliente = (dni, nombre, apellido, tlf, direccion, ciudad)
         consulta = """INSERT INTO cliente (dni, nombre, apellido, tlf, direccion, ciudad) VALUES (%s, %s, %s, %s, %s, %s)""" #Insertamos a la tabla cliente los datos que a escrito el nuevo usuario
         cursor.execute(consulta, nuevo_cliente) 
