@@ -25,10 +25,10 @@ def menu_pedido():
     
 def crear_pedido():
     try:
-        idpedido = int(input("Dame el idpedido de tu pedido: "))
-        idcliente = input("Dame el idcliente de tu cliente: ")
-        fechapedido = datetime.now()
-        fechaentrega = fechapedido + timedelta(days=3)
+        idpedido = int(input("Dame el idpedido de tu pedido:")) #Poner id del pedido
+        idcliente = input("Dame el idcliente de tu cliente:")#Poner el id del cliente
+        fechapedido = datetime.now()#Se genera una nueva fecha
+        fechaentrega = fechapedido + timedelta(days=3)#Agregamos 3 dias al pedido para la entrega
             
         nuevo_pedido = (idpedido, idcliente, fechapedido, fechaentrega)
         consulta = """INSERT INTO pedido(idpedido, idcliente, fechapedido, fechaentrega) VALUES (%s, %s, %s, %s)"""
@@ -39,10 +39,10 @@ def crear_pedido():
             idproducto = int(input(Fore.GREEN+"Introduce el id producto que deseas comprar(o -1 para acabar):")) #Le solicitamos al cliente que ingrese los id de los productos que desea comprar, y si quiere dejar de añadir productos escribe 111
             if idproducto == -1:
                 break
-            unidades = int(input(f"Cuantas unidades del producto {idproducto} deseas comprar:"))
+            unidades = int(input(f"Cuantas unidades del producto {idproducto} deseas comprar:")) #El cliente tiene que poner la cantidad del producto
             if unidades <= 0:
                 continue
-            descuento = float(input("Introduce el descuento:"))
+            descuento = float(input("Introduce el descuento:"))#Hay que introducir el descuento
             print(Style.RESET_ALL)
             precio_unidad = idproducto
             precio = precio_unidad * unidades - descuento
@@ -73,7 +73,7 @@ def leer_pedido():
         FROM 
             pedido p
         LEFT JOIN 
-            detalle d ON p.idpedido = d.idpedido;"""
+            detalle d ON p.idpedido = d.idpedido;""" #Usamos el select para leer el pedido y el detalle
         cursor.execute(consulta)
         pedidos = cursor.fetchall()
 
@@ -99,7 +99,7 @@ def actualizar_pedido():
         idpedido = int(input("Introduce el idpedido que deseas actualizar:"))
         fechapedido = datetime.now()
         fechaentrega = fechapedido + timedelta(days=3)
-        consulta_actualizar = """UPDATE pedido SET fechapedido = %s, fechaentrega = %s WHERE idpedido = %s"""
+        consulta_actualizar = """UPDATE pedido SET fechapedido = %s, fechaentrega = %s WHERE idpedido = %s""" #Actualizamos el pedido
         cursor.execute(consulta_actualizar, (idpedido, fechapedido, fechaentrega))
         
         while True:
@@ -113,7 +113,7 @@ def actualizar_pedido():
             print(Style.RESET_ALL)
             precio_unidad = idproducto
             precio = precio_unidad * unidades - descuento
-            consulta_detalle = """UPDATE detalle SET idproducto = %s, precio = %s, unidades = %s, descuento = %s WHERE idpedido = %s"""
+            consulta_detalle = """UPDATE detalle SET idproducto = %s, precio = %s, unidades = %s, descuento = %s WHERE idpedido = %s""" #Actualizamos los productos que han ingresado
             cursor.execute(consulta_detalle, (idpedido, idproducto, unidades, precio, descuento))
         conexion.commit()
         print(Fore.CYAN+ f"[Mensaje de confirmación] El idpedido ha sido actualizado con exito {idpedido}.")
