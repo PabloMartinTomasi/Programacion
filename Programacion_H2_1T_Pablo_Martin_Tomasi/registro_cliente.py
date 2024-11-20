@@ -1,6 +1,4 @@
 import conexion_bd as bd
-from mysql.connector import Error
-import time
 from colorama import Fore, Back, Style
 
 

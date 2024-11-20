@@ -6,7 +6,7 @@ import seguimiento_compra as SC
 from colorama import Fore, Back, Style
 
 
-conexion = bd.conectar("supermercado")
+conexion = bd.conectar("SupermercadoPyton")
 cursor = conexion.cursor()
 
 while True:

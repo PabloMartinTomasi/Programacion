@@ -27,8 +27,6 @@ def Visualizar_busqueda_clientes():
             consulta = f"""SELECT idcliente, dni, nombre, apellido, tlf, direccion, ciudad FROM cliente WHERE idcliente = {idcliente}"""
             cursor.execute(consulta)
             clientes = cursor.fetchall()
-            print(Fore.BLUE+"Listado de CLIENTES:")
-            print(Style.RESET_ALL)
             print(Fore.GREEN+ f"[Mensaje de confirmacion] Los datos del idcliente {idcliente}:") #Le enseñamos al cliente todos los cliente que hay
             print(Style.RESET_ALL)
             for cliente in clientes: #Podemos ver los datos del cliente con el id selecionado

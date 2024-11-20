@@ -1,5 +1,4 @@
 import conexion_bd as bd
-import numpy as np
 from colorama import Fore, Back, Style
 
 
@@ -11,25 +10,25 @@ def seguimiento_compra ():
         idpedido = int(input("Introduce el id pedido:")) #Solicitamos al cliente que ingrese el id del pedido para ver todo el detalles
         #Utilizamos select para poder tener los datos del cliente y del pedido
         consulta = """SELECT 
-            c.idcliente, 
-            c.nombre AS nombre, 
-            c.apellido AS apellido, 
-            d.idproducto,
-            pr.nombre AS nombre_producto, 
-            d.cantidad, 
-            d.precio
+            C.idcliente, 
+            C.nombre AS nombre, 
+            C.apellido AS apellido, 
+            C.idproducto,
+            PR.nombre AS nombre_producto, 
+            D.cantidad, 
+            D.precio
         FROM 
-            cliente c
+            cliente C
         JOIN 
-            pedido p ON c.idcliente = p.idcliente
+            pedido P ON c.idcliente = P.idcliente
         JOIN 
-            detalle d ON p.idpedido = d.idpedido
+            detalle D ON P.idpedido = D.idpedido
         JOIN 
-            producto pr ON d.idproducto = pr.idproducto
+            producto PR ON D.idproducto = PR.idproducto
         WHERE 
-            p.idpedido = %s
+            P.idpedido = %s
         ORDER BY 
-            p.idpedido;"""
+            P.idpedido;"""
         
         cursor.execute(consulta, (idpedido,))
         pedidos = cursor.fetchall()
@@ -50,6 +49,4 @@ def seguimiento_compra ():
         with open ("total_pedido.txt", "r") as archivo:
             contenido = archivo.read()
         print(contenido)
-        
-        
         break
