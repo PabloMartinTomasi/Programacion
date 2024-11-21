@@ -10,8 +10,7 @@ def registrar_cliente_inscripcion():
     consulta_leer = """SELECT A.id_actividad, A.nombre_actividad, A.horario, A.duracion, E.id_entrenador, E.nombre_entrenador, E.especialidad 
                     FROM actividades A
                     INNER JOIN entrenadores E
-                    ON 
-                    A.id_entrenador = E.id_entrenador"""#Usamos la consulta para leer los datos de la actividad y del entrenedaro que hace dicha actividad
+                    ON A.id_entrenador = E.id_entrenador"""#Usamos la consulta para leer los datos de la actividad y del entrenedaro que hace dicha actividad
     cursor.execute(consulta_leer)
     actividades = cursor.fetchall()
     
