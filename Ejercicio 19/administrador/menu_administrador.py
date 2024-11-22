@@ -26,6 +26,9 @@ def menu_administrador():
                 FFB.menu_filtro_busqueda()
             elif menu == 6:
                 FR.menu_reportes
+            elif menu == 7:
+                print("Saliendo")
+                break
     except ValueError as ve:
         print(Fore.RED + f"Error: Entrada inválida. Por favor, ingrese un número. ({ve})")
         print(Style.RESET_ALL)
