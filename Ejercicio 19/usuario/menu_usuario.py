@@ -1,4 +1,4 @@
-import funciones_inscripciones_cliente as FIC
+from usuario import funciones_inscripciones_cliente as FIC
 from colorama import Fore, Back, Style
 
 

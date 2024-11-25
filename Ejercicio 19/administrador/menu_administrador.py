@@ -1,9 +1,9 @@
-import funcion_clientes as CLI
-import funcion_actividades as ACT
-import funcion_entrenadores as ENT
-import funciones_inscripciones as INS
-import funcion_Filtros_Busqueda as FFB
-import funcion_reportes as FR
+from administrador import funcion_clientes as CLI
+from administrador import funcion_actividades as ACT
+from administrador import funcion_entrenadores as ENT
+from administrador import funciones_inscripciones as INS
+from administrador import funcion_Filtros_Busqueda as FFB
+from administrador import funcion_reportes as FR
 from colorama import Fore, Back, Style
 
 

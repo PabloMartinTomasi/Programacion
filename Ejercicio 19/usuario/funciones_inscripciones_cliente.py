@@ -1,4 +1,4 @@
-import conexion_bd as bd
+from usuario import conexion_bd as bd
 from colorama import Fore, Back, Style
 
 
