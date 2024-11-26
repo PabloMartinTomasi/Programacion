@@ -46,6 +46,17 @@ def crear_actividad():
     print(Fore.GREEN+ f"[Mensaje]: Actividad registrada exitosamente. Con el id {id_actividad}")#Imprimimos el id de la actividad
     print(Style.RESET_ALL)
     
+    consulta_leer = """SELECT A.id_actividad, A.nombre_actividad, A.horario, A.duracion, E.id_entrenador, E.nombre_entrenador, E.especialidad 
+                    FROM actividades A
+                    INNER JOIN entrenadores E
+                    ON 
+                    A.id_entrenador = E.id_entrenador"""
+    cursor.execute(consulta_leer)
+    actividades = cursor.fetchall()
+    with open("actividades.txt", "w") as archivo:
+        archivo.write(f"{actividades}")
+
+    
 def leer_actividad():
     consulta_leer = """SELECT A.id_actividad, A.nombre_actividad, A.horario, A.duracion, E.id_entrenador, E.nombre_entrenador, E.especialidad 
                     FROM actividades A
@@ -61,6 +72,9 @@ def leer_actividad():
     for id_actividad, nombre_actividad, horario, duracion, id_entrenador, nombre_entrenador, especialidad in actividades:
         print(f"[Mensaje]: {id_actividad} | {nombre_actividad} | {horario} | {duracion} | {id_entrenador} | {nombre_entrenador} | {especialidad}")#Imprimimos los datos del select
         print(Style.RESET_ALL)
+    
+    with open("actividades.txt", "w") as archivo:
+        archivo.write(f"{actividades}")
 
 def actualizar_actividad():
     id_actividad = int(input("Introduce el id de la actividad que quieres actualizar:"))#Solicitamos el id de la actividad para actulizarla
@@ -77,6 +91,16 @@ def actualizar_actividad():
     print(Fore.BLUE+ f"[Mensaje de confirmación] La actividad con el ID {id_actividad} ha sido actualizado.")#Imprimimos que los datos se han actualizado de manera correcta
     print(Style.RESET_ALL)
     
+    consulta_leer = """SELECT A.id_actividad, A.nombre_actividad, A.horario, A.duracion, E.id_entrenador, E.nombre_entrenador, E.especialidad 
+                    FROM actividades A
+                    INNER JOIN entrenadores E
+                    ON 
+                    A.id_entrenador = E.id_entrenador"""
+    cursor.execute(consulta_leer)
+    actividades = cursor.fetchall()
+    with open("actividades.txt", "w") as archivo:
+        archivo.write(f"{actividades}")
+    
 def eliminar_actividad():
     id_actividad = int(input("Introduce el id de la actividad que deseas eliminar:"))#Solitamos el id de la actividad que hay que eliminar
     
@@ -89,6 +113,16 @@ def eliminar_actividad():
     conexion.commit()
     print(Fore.RED+ f"[Mensaje de confirmación] La actividad con el idactividad {id_actividad} ha sido eliminado.")#Imprimimos que la actividad a sido eliminada con exito
     print(Style.RESET_ALL)
+    
+    consulta_leer = """SELECT A.id_actividad, A.nombre_actividad, A.horario, A.duracion, E.id_entrenador, E.nombre_entrenador, E.especialidad 
+                    FROM actividades A
+                    INNER JOIN entrenadores E
+                    ON 
+                    A.id_entrenador = E.id_entrenador"""
+    cursor.execute(consulta_leer)
+    actividades = cursor.fetchall()
+    with open("actividades.txt", "w") as archivo:
+        archivo.write(f"{actividades}")
 
 def salir_menu_actividad():#Ceramos la consulta
     if cursor:

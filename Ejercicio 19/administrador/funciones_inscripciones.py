@@ -18,7 +18,6 @@ def menu_inscripciones():
             elif menu == 3:#Eleminamos a la persona inscrita en dicha actividad si se seleciona la opcion 3
                 eliminar_inscripcion()
             elif menu == 4:#Salir de la gestion de inscripciones si se selciona la opcion 4
-                salir_menu_inscripciones()
                 break
             else:
                 print("Seleciona una opcion del menu")
@@ -42,6 +41,16 @@ def registrar_cliente_inscripcion():
     print(Fore.GREEN+ f"[Mensaje]: Inscripción registrada exitosamente. El id de tu inscripcion es {id_inscripcion}")#Imprimimos el id de la incripcion a la actividad
     print(Style.RESET_ALL)
     
+    consulta_inscripcion = """SELECT i.id_inscripcion, c.nombre AS Cliente, a.nombre_actividad AS Actividad, 
+                        a.horario AS Horario
+                        FROM inscripciones AS i
+                        JOIN clientes AS c ON i.id_cliente = c.id_cliente
+                        JOIN actividades AS a ON i.id_actividad = a.id_actividad;"""
+    cursor.execute(consulta_inscripcion)
+    inscripciones = cursor.fetchall()
+    with open("inscripciones.txt", "w") as archivo:
+        archivo.write(f"{inscripciones}")
+    
 def leer_inscripciones():
     consulta_inscripcion = """SELECT i.id_inscripcion, c.nombre AS Cliente, a.nombre_actividad AS Actividad, 
                         a.horario AS Horario
@@ -55,6 +64,9 @@ def leer_inscripciones():
     for id_inscripcion, nombre, nombre_actividad, horario in inscripciones:
         print(f"[Mensaje]: {id_inscripcion} | {nombre} | {nombre_actividad} | {horario}")
         print(Style.RESET_ALL)
+        
+    with open("inscripciones.txt", "w") as archivo:
+        archivo.write(f"{inscripciones}")
        
 def eliminar_inscripcion():
     id_inscripcion = int(input("Introduce el id de la inscripcion que deseas eliminar:"))#Solicitamos el id de la inscripcion para eliminar al cliente incrito
@@ -63,9 +75,3 @@ def eliminar_inscripcion():
     conexion.commit()
     print(Fore.RED+ f"[Mensaje de confirmación] La inscripcion con el id {id_inscripcion} ha sido eliminado.")#Imprimos que la eliminacion de la inscripcion se ha realizado con exito
     print(Style.RESET_ALL)
-
-def salir_menu_inscripciones():
-    if cursor:
-        cursor.close()
-    if conexion:
-        conexion.close()

@@ -1,0 +1,1 @@
+[(1, 'lucas', 18, 'Mensual'), (2, 'juan', 36, 'Anual'), (3, 'Jose', 23, 'Trimestral'), (4, 'Federico', 56, 'Mensual')] 

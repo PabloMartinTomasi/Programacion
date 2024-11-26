@@ -8,7 +8,7 @@ cursor = conexion.cursor()
 
 def menu_reportes():
     while True:
-        print("1- Número de clientes inscritos por actividad \n2- Promedio de edad de los clientes inscritos en cada actividad \n3- Actividades más populares \n3- Sakir")
+        print("1- Número de clientes inscritos por actividad \n2- Promedio de edad de los clientes inscritos en cada actividad \n3- Actividades más populares \n4- Salir")
         menu = int(input("Seleciona una opcion del menu:"))
         if menu == 1:
             clientes_por_actividad()
@@ -16,7 +16,7 @@ def menu_reportes():
             edad_promedio()
         elif menu == 3:
             actividad_mas_popular()
-        elif menu == 5:
+        elif menu == 4:
             break
         else:
             print("Seleciona una opcion del menu")

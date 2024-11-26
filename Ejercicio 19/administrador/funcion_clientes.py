@@ -20,7 +20,6 @@ def menu_cliente():
             elif menu == 4: #Eliminar un cliente (y sus inscripciones asociadas)
                 eliminar_cliente()
             elif menu == 5: #Salir del menu clientes
-                salir_menu_cliente()
                 break
             else:
                 print("Seleciona una opcion del menu")
@@ -44,6 +43,12 @@ def nuevo_cliente():
     id_cliente = cursor.lastrowid #Generamos un id al cliente
     print(Fore.CYAN+ f"[Mensaje]: Cliente registrado exitosamente, con el idcliente {id_cliente}.") #Enseñamos al cliente su id
     print(Style.RESET_ALL)
+    
+    consulta_leer = """SELECT id_cliente, nombre, edad, tipo_membresia FROM clientes""" 
+    cursor.execute(consulta_leer)
+    clientes = cursor.fetchall()
+    with open("clientes.txt", "w") as archivo:
+        archivo.write(f"{clientes} \n")
 
         
 def leer_clientes():
@@ -54,6 +59,9 @@ def leer_clientes():
     print(Style.RESET_ALL)
     for id_cliente, nombre, edad, tipo_membresia in clientes:
         print(f"[Mensaje]: {id_cliente} | {nombre} | {edad} | {tipo_membresia}") #Imprimimos todos los datos de todos los clientes
+        
+    with open("clientes.txt", "w") as archivo:
+        archivo.write(f"{clientes} \n")
         
 def actualizar_cliente():
     id_cliente = int(input("Introduce el id del cliente que quieres actualizar:"))#Solicitamos el id cliente para actualizar los datos
@@ -66,6 +74,12 @@ def actualizar_cliente():
     conexion.commit()
     print(Fore.GREEN+ f"[Mensaje de confirmación] El  cliente con ID {id_cliente} ha sido actualizado.")#Imprimimos que la actualizacion de los datos se ha realizado con exito
     print(Style.RESET_ALL)
+    
+    consulta_leer = """SELECT id_cliente, nombre, edad, tipo_membresia FROM clientes""" 
+    cursor.execute(consulta_leer)
+    clientes = cursor.fetchall()
+    with open("clientes.txt", "w") as archivo:
+        archivo.write(f"{clientes} \n")
     
 def eliminar_cliente():
     id_cliente = int(input("Introduce el idcliente que quieres eliminar:"))#Solicitamos el id del cliente que hay que eliminar
@@ -81,9 +95,9 @@ def eliminar_cliente():
     
     print(Fore.RED+ f"[Mensaje de confirmación] El cliente con el idcliente {id_cliente} ha sido eliminado.")
     print(Style.RESET_ALL)
-
-def salir_menu_cliente():#Ceramos la consulta
-    if cursor:
-        cursor.close()
-    if conexion:
-        conexion.close()
+    
+    consulta_leer = """SELECT id_cliente, nombre, edad, tipo_membresia FROM clientes""" 
+    cursor.execute(consulta_leer)
+    clientes = cursor.fetchall()
+    with open("clientes.txt", "w") as archivo:
+        archivo.write(f"{clientes}")
