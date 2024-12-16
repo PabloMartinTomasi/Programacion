@@ -1,7 +1,7 @@
 <?php
-require_once 'funciones.php';
+require_once 'funciones_clientes.php';
 
-$archivo = "clientes.csv";
+$archivo = "../datos/clientes.csv";
 $clientes = leerClientes($archivo);
 ?>
 <!DOCTYPE html>
@@ -18,6 +18,7 @@ $clientes = leerClientes($archivo);
             <th>ID</th>
             <th>Nombre</th>
             <th>Correo</th>
+            <th>Teléfono</th>
         </tr>
         <?php foreach ($clientes as $index => $cliente): ?>
             <?php if ($index > 0): ?>
@@ -25,6 +26,7 @@ $clientes = leerClientes($archivo);
                     <td><?= $cliente[0] ?></td>
                     <td><?= $cliente[1] ?></td>
                     <td><?= $cliente[2] ?></td>
+                    <td><?= $cliente[3] ?></td>
                 </tr>
             <?php endif; ?>
         <?php endforeach; ?>

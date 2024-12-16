@@ -12,7 +12,11 @@ if ($id !== null) {
     escribirClientes($archivo, $clientesActualizados);
     echo "<h1>Cliente eliminado con éxito</h1>";
     echo "<a href='listar_clientes.php'>Volver al listado</a>";
+    header("Location: ../index.php?opcion=clientes");
+    exit();
 } else {
     echo "Error: No se recibió un ID válido.";
+    header("Location: ../index.php?opcion=clientes");
+    exit();
 }
 ?>
