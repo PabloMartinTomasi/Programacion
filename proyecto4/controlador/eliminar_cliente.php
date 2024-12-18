@@ -1,5 +1,5 @@
 <?php
-require_once 'funciones.php';
+require_once 'funciones_clientes.php';
 
 $archivo = "../datos/clientes.csv";
 $id = $_POST["id"] ?? null;
