@@ -23,19 +23,22 @@ class Coche extends Vehiculo{
 
     public function __construct($marca, $modelo, $combustible){
         parent:: __construct($marca, $modelo);
-        $combustible = ["gasolina", "diésel", "eléctrico"];
+        $this->combustible = ["Gasolina", "Diésel", "Eléctrico"];
         $this->combustible = $combustible;
     }
 
     public function mostrarDetalles(){
         parent::mostrarDetalles();
-        echo " | Combustible: {$this->combustible}\n\n";
+        echo " | Combustible: {$this->combustible}\n";
     }
 }
 
 
-$vehivulo
+$vehivulo = new Vehiculo("Tesla", "Model 3");
+$vehivulo->encender();
 
 
+$coche = new Coche("Tesla", "Model 3", "Eléctrico");
+$coche->mostrarDetalles();
 
 ?>
