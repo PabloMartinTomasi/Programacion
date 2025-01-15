@@ -1,34 +1,64 @@
 <?php
 error_reporting(E_ALL);
 
-class empleado{
+class Empleado{
     public $nombre;
     public $sueldo;
     public $aniosExperiencia;
 
     public function calcularBonus(){
-        $bonus = ($this->aniosExperiencia / 2) * 0.5 * $this->sueldo;
-        return $bonus;
+        return floor($this->aniosExperiencia / 2)*0.05*$this->sueldo;
     }
 
     public function mostrarDetalles(){
+        echo "EMPLEADO\n";
         echo "Nombre del empleado: {$this->nombre}\n";
-        echo "Sueldo: {$this->sueldo}\n";
-        echo "Años de experiencia: {$this->aniosExperiencia}";
+        echo "Sueldo: {$this->sueldo}€\n";
+        echo "Años de experiencia: {$this->aniosExperiencia}\n";
+        echo "Bonus: {$this->calcularBonus()}€\n\n";
     }
 }
 
-class consultor extends empleado{
+class Consultor extends Empleado{
     public $horasPorProyecto;
+
     public function calcularBonus(){
-        $bonus = ($this->aniosExperiencia / 2) * 0.5 * $this->sueldo;
+        $bonusBase = floor($this->aniosExperiencia / 2)*0.05*$this->sueldo;
+
         if ($this->horasPorProyecto > 100){
-            $bonus += 0.1 * $this->sueldo;
+            $bonusAdicional = 0.1*$this->sueldo;
+            return $bonusBase + $bonusAdicional;
         }
-        return $bonus;
+        return $bonusBase;
     }
+    public function mostrarDetalles(){
+        echo "CONSULTOR\n";
+        echo "Nombre del consultor: {$this->nombre}\n";
+        echo "Sueldo: {$this->sueldo}€\n";
+        echo "Años de experiencia: {$this->aniosExperiencia}\n";
+        echo "Bonus: {$this->calcularBonus()}€\n";
+        echo "Horas de proyecto: {$this->horasPorProyecto} horas";
+    } 
 }
 
 
+$Empleado=new Empleado;
+
+$Empleado->nombre="Juan";
+$Empleado->sueldo=1500;
+$Empleado->aniosExperiencia=3;
+
+$Empleado->mostrarDetalles();
+
+
+
+$Consultor = new Consultor();
+
+$Consultor->nombre = "Luis";
+$Consultor->sueldo = 2000;
+$Consultor->aniosExperiencia = 4;
+$Consultor->horasPorProyecto = 120; 
+
+$Consultor->mostrarDetalles(); 
 
 ?>

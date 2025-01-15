@@ -30,21 +30,21 @@ $tareas = [];
 $tarea1 = new Tarea();
 $tarea1->nombre = "Ejercicios 1 de PHP";
 $tarea1->descripcion = "Ejercicio de Programación";
-$tarea1->fechaLimite = "Viernes 14 de Marzo";
+$tarea1->fechaLimite = "Viernes 17 de Enero";
 $tarea1->estado = "No completada";
 $tareas[] = $tarea1;
 
 $tarea2 = new Tarea();
-$tarea2->nombre = "Ejercicio de ";
-$tarea2->descripcion = "Crear una API para la gestión de usuarios";
-$tarea2->fechaLimite = "Lunes 17 de Marzo";
+$tarea2->nombre = "Ejercicio de Matematicas";
+$tarea2->descripcion = "Haz las siguientes ecuaciones sin el uso de la calculadora";
+$tarea2->fechaLimite = "Lunes 20 de Enero";
 $tarea2->estado = "No completada";
 $tareas[] = $tarea2;
 
 $tarea3 = new Tarea();
-$tarea3->nombre = "Revisión de código";
-$tarea3->descripcion = "Revisar y refactorizar el código del proyecto";
-$tarea3->fechaLimite = "Miércoles 19 de Marzo";
+$tarea3->nombre = "Leer el libro mandado en clase";
+$tarea3->descripcion = "Tener que leerte los primeros 5 capitulos";
+$tarea3->fechaLimite = "Miércoles 22 de Enero";
 $tarea3->estado = "No completada";
 $tareas[] = $tarea3;
 
@@ -58,7 +58,7 @@ foreach ($tareas as $tarea) {
 $tareas[0]->marcarComoCompletada();
 
 
-$tareas[1]->editarDescripcion("Crear una API RESTful con autenticación");
+$tareas[1]->editarDescripcion("Haz las siguientes ecuaciones sin el uso de la calculadora, pero si ves que no puedes utilizala");
 
 
 echo "\nLista de tareas después de realizar cambios:\n";
