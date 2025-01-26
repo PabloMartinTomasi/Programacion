@@ -7,7 +7,7 @@ $clientes = $controller->listarClientes();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo/#.css">
@@ -19,10 +19,26 @@ $clientes = $controller->listarClientes();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="css/estilo.css" rel="stylesheet">
-    <title>Listado de Clientes</title>
+    <title>Clientes Registrados</title>
 </head>
 <body>
-    <h1>Clientes Registrados</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Stream Web</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="listaClientes.php" role="button" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
+                            Clientes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <table class="table">
             <thead>
                 <tr>
@@ -30,8 +46,11 @@ $clientes = $controller->listarClientes();
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
-                    <th>Teléfono</th>
                     <th>Edad</th>
+                    <th>ID Factura</th>
+                    <th>Plan</th>
+                    <th>Pack</th>
+                    <th>Duracion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -42,8 +61,11 @@ $clientes = $controller->listarClientes();
                         <td><?= $cliente['nombre'] ?></td>
                         <td><?= $cliente['apellido'] ?></td>
                         <td><?= $cliente['email'] ?></td>
-                        <td><?= $cliente['telefono'] ?></td>
                         <td><?= $cliente['edad'] ?></td>
+                        <td><?= $cliente['id_factura'] ?></td>
+                        <td><?= $cliente['plan'] ?></td>
+                        <td><?= $cliente['pack'] ?></td>
+                        <td><?= $cliente['duracion'] ?></td>
                         <td>
                             <a href="editar_cliente.php?id=<?= $cliente['id_cliente'] ?>">Editar</a>
                             <a href="eliminar_cliente.php?id=<?= $cliente['id_cliente'] ?>">Eliminar</a>
@@ -54,6 +76,7 @@ $clientes = $controller->listarClientes();
     </table>
     <br>
     <a href="alta_cliente.php">Agregar un nuevo cliente</a>
+    <a href="usuario_concreto.php">usuario_concreto</a>
 
 
     

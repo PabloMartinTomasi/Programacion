@@ -8,8 +8,8 @@ class ClientesController {
         $this->modelo = new Cliente();
     }
 
-    public function agregarCliente($nombre, $apellido, $email, $telefono, $edad) {
-        $this->modelo->agregarCliente($nombre, $apellido, $email, $telefono, $edad);
+    public function agregarCliente($nombre, $apellido, $email, $edad, $plan, $pack, $duracion, $id_cliente) {
+        $this->modelo->agregarCliente($nombre, $apellido, $email, $edad, $plan, $pack, $duracion, $id_cliente);
     }
 
     public function listarClientes() {
@@ -17,11 +17,12 @@ class ClientesController {
     }
 
     public function obtenerClientesPorId($id_cliente) {
-        return $this->modelo->obtenerClientesPorId($id_cliente);
+        $resultado = $this->modelo->obtenerClientesPorId($id_cliente);
+        return $resultado;
     }
 
-    public function actualizarCliente($id_cliente, $nombre, $apellido, $email, $telefono, $edad) {
-        $this->modelo->actualizarCliente($id_cliente, $nombre, $apellido, $email, $telefono, $edad);
+    public function actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion) {
+        $this->modelo->actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion);
     }
 
     public function eliminarCliente($id_cliente) {
