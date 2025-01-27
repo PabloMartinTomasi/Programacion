@@ -39,6 +39,7 @@ $clientes = $controller->listarClientes();
             </div>
         </div>
     </nav>
+    <h1>Lista de los clientes</h1>
     <table class="table">
             <thead>
                 <tr>
@@ -67,16 +68,16 @@ $clientes = $controller->listarClientes();
                         <td><?= $cliente['pack'] ?></td>
                         <td><?= $cliente['duracion'] ?></td>
                         <td>
-                            <a href="editar_cliente.php?id=<?= $cliente['id_cliente'] ?>">Editar</a>
-                            <a href="eliminar_cliente.php?id=<?= $cliente['id_cliente'] ?>">Eliminar</a>
+                            <a href="editar_cliente.php?id=<?= $cliente['id_cliente'] ?>" class="btn btn-primary active mb-3" role="button">Editar</a>
+                            <a href="eliminar_cliente.php?id=<?= $cliente['id_cliente'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
     </table>
     <br>
-    <a href="alta_cliente.php">Agregar un nuevo cliente</a>
-    <a href="usuario_concreto.php">usuario_concreto</a>
+    <a href="alta_cliente.php" class="btn btn-primary active mb-3" role="button">Agregar un nuevo cliente</a>
+    <a href="usuario_concreto.php" class="btn btn-primary active mb-3" role="button">Buscar usuario en concreto</a>
 
 
     

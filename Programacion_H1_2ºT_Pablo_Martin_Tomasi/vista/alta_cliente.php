@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="../js/script.js" defer></script>
     <title>Añadir Cliente</title>
 </head>
 <body>
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="number" class="form-control" id="edad" name="edad" required>
             </div>
             <div class="form-floating">
-                <select class="form-select" id="plan" name="plan"required>
+                <select class="form-select" id="plan" name="plan" required>
                     <option selected>Tipo de plan</option>
                     <option value="Basico">Basico</option>
                     <option value="Estandar">Estandar</option>
@@ -55,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <br>
             <div class="form-floating">
-                <select class="form-select" id="pack" name="pack"required>
+                <select class="form-select" id="packs" name="pack" required>
                     <option selected>Tipo de pack</option>
                     <option value="Deporte">Deporte</option>
                     <option value="Cine">Cine</option>
@@ -64,11 +65,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <br>
             <div class="form-floating">
-                <select class="form-select" id="duracion" name="duracion"required>
+                <select class="form-select" id="duracion" name="duracion" required>
                     <option selected>Duracion de la suscripcion</option>
                     <option value="Mensual">Mensual</option>
                     <option value="Anual">Anual</option>
                 </select>
+            </div>
+            <div>
+                <p id="costo-total">Costo Total: 0 €</p>
             </div>
             <button type="submit" class="btn btn-primary">Añadir nuevo cliente</button>
         </form>

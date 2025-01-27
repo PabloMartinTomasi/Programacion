@@ -13,6 +13,7 @@ if (isset($_GET['id_cliente'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="../js/script.js" defer></script>
     <title>Ver Cliente por ID</title>
 </head>
 <body>
@@ -62,6 +63,11 @@ if (isset($_GET['id_cliente'])) {
                             <td><?= $usuario['plan'] ?></td>
                             <td><?= $usuario['pack'] ?></td>
                             <td><?= $usuario['duracion'] ?></td>
+                            <td>
+                                <div>
+                                    <p id="costo-total">Costo Total: 0 €</p>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

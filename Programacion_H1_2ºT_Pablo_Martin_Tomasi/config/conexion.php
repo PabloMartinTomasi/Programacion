@@ -7,7 +7,7 @@ class Conexion { //nos conectamos a la base de datos
     public $conexion;
 
     public function __construct() { //usamos una function para conectarnos
-        $this->conexion = new mysqli($this->servidor, $this->usuario, $this->password, $this->base_datos, 3307);
+        $this->conexion = new mysqli($this->servidor, $this->usuario, $this->password, $this->base_datos);
 
         if ($this->conexion->connect_error) {
             die("Error de conexión: " . $this->conexion->connect_error); //Si no conseguimos conectarnos nos sale un erros

@@ -27,7 +27,7 @@ class Cliente {
             $stmtInscripcion->bind_param("isss", $id_cliente, $plan, $pack, $duracion);
 
             if (!$stmtInscripcion->execute()) {
-                throw new Exception("Error al agregar inscripción: " . $stmtInscripcion->error);
+                throw new Exception("Error al agregar la inscripción del cliente: " . $stmtInscripcion->error);
             }
 
             $this->conexion->conexion->commit();
