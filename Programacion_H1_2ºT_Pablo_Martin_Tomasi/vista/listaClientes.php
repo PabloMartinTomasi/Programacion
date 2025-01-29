@@ -30,10 +30,15 @@ $clientes = $controller->listarClientes();
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="listaClientes.php" role="button" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             Clientes
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="alta_cliente.php">Añadir Cliente</a></li>
+                            <li><a class="dropdown-item" href="eliminar_cliente.php">Eliminar Cliente</a></li>
+                            <li><a class="dropdown-item" href="editar_cliente.php">Editar Cliente</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -41,18 +46,18 @@ $clientes = $controller->listarClientes();
     </nav>
     <h1>Lista de los clientes</h1>
     <table class="table">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Edad</th>
-                    <th>ID Factura</th>
-                    <th>Plan</th>
-                    <th>Pack</th>
-                    <th>Duracion</th>
-                    <th>Acciones</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">ID Factura</th>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Pack</th>
+                    <th scope="col">Duracion</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,10 +82,5 @@ $clientes = $controller->listarClientes();
     </table>
     <br>
     <a href="alta_cliente.php" class="btn btn-primary active mb-3" role="button">Agregar un nuevo cliente</a>
-    <a href="usuario_concreto.php" class="btn btn-primary active mb-3" role="button">Buscar usuario en concreto</a>
-
-
-    
-
 </body>
 </html>

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="../js/script.js" defer></script>
+    <script src="../js/scripts.js"></script>
     <title>Añadir Cliente</title>
 </head>
 <body>
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="mb-3">
                 <label for="edad" class="form-label">Edad</label>
-                <input type="number" class="form-control" id="edad" name="edad" required>
+                <input type="number" class="form-control" id="edad" name="edad" oninput="pack()" required>
             </div>
             <div class="form-floating">
                 <select class="form-select" id="plan" name="plan" required>
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <br>
             <div class="form-floating">
-                <select class="form-select" id="packs" name="pack" required>
+                <select class="form-select" id="pack" name="pack" oninput="pack()" required>
                     <option selected>Tipo de pack</option>
                     <option value="Deporte">Deporte</option>
                     <option value="Cine">Cine</option>
