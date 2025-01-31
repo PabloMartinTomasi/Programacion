@@ -12,9 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_factura = $_POST['id_factura'];
     $plan = $_POST['plan'];
     $pack = $_POST['pack'];
+    $packadicional = $_POST['pack_adicional'];
     $duracion = $_POST['duracion'];
     $controlador = new ClientesController();//Creamos una nueva instancia del archivo ClientesController.php
-    $resultado = $controlador->actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion);
+    if ($packadicional == 'vacio') {
+        $resultado = $controlador->actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion);
+    }
+    else{
+        $packTotal = $pack . "," . $packadicional;
+        $resultado = $controlador->actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion);
+
+    }
     header('Location: ../index.php');
     exit();
 }
