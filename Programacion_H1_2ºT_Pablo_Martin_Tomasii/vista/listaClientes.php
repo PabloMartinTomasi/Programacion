@@ -3,7 +3,6 @@ require_once '../controlador/clientesController.php';
 $controller = new ClientesController();
 $clientes = $controller->listarClientes();//Funcion para poder ver a todos los clientes registrados
 
-
 //Sirve para poder poner en la tabla lo que esta pagando cada cliente
 $PrecioPlan = [
     'Basico' => 9.99,
@@ -11,45 +10,36 @@ $PrecioPlan = [
     'Premium' => 17.99
 ];
 
-
 $PrecioPack = [
     'Deporte' => 6.99,
     'Cine' => 7.99,
     'Infantil' => 4.99
 ];
 
-
 function total($plan, $pack, $duracion, $pack_extra = null){
     global $PrecioPlan, $PrecioPack;
 
-
     $costoMensual = 0;
-
 
     if (isset($PrecioPlan[$plan])) {
         $costoMensual += $PrecioPlan[$plan];
     }
 
-
     if (isset($PrecioPack[$pack])) {
         $costoMensual += $PrecioPack[$pack];
     }
-
 
     if ($pack_extra && isset($PrecioPack[$pack_extra])) {
         $costoMensual += $PrecioPack[$pack_extra];
     }
 
-
     if ($duracion == 'Anual') {
         $costoMensual *= 12;
     }
 
-
     return $costoMensual;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -115,7 +105,6 @@ function total($plan, $pack, $duracion, $pack_extra = null){
                             $pack = $cliente['pack'];
                             $duracion = $cliente['duracion'];
                             $pack_extra = isset($cliente['pack_extra']) ? $cliente['pack_extra'] : null;
-
 
                             $costoTotal = total($plan, $pack, $duracion, $pack_extra);
                         ?>

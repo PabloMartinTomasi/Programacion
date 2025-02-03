@@ -1,7 +1,6 @@
 <?php
 require_once '../controlador/clientesController.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Recoje los datos que se han enviado a traves del formulario para eliminar al cliente
     $id_cliente = $_POST['id_cliente'];
@@ -11,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -43,8 +41,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
-
-
-
-
-

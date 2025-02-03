@@ -1,7 +1,6 @@
 <?php
 require_once '../controlador/ClientesController.php';//Decimos que es necesario el archivo ClientesController de la carpeta controlador
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Recoje los datos que se han enviado a traves del formulario
     $nombre = $_POST['nombre'];
@@ -16,18 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controlador = new ClientesController();//Creamos una nueva instancia del archivo ClientesController.php
     if ($packadicional == 'vacio') {
         $resultado = $controlador->agregarCliente($nombre, $apellido, $email, $edad, $plan, $pack, $duracion, $id_cliente);//Llamamos a la funcion de agregar cliente que esta en el archivo de class clientes
+
     }
     else{
         $packTotal = $pack . "," . $packadicional;
         $resultado = $controlador->agregarCliente($nombre, $apellido, $email, $edad, $plan, $packTotal, $duracion, $id_cliente);//Llamamos a la funcion de agregar cliente que esta en el archivo de class clientes
-    }
 
+    }
 
     header('Location: ../index.php');//Despues de que el cliente haya sido agregado con exito nos mandara al archivo index.php
     exit();//Nos aseguramos que el script termine despues de la redirecion
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -98,11 +97,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <script src="../js/scripts.js"></script><!--Llamamo al scripts.js para tener el Java Script y que pueda efectuar corectamente las restrinciones-->
 
-
 </body>
 </html>
-
-
-
-
-

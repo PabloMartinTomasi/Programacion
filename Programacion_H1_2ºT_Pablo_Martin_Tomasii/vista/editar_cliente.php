@@ -1,7 +1,6 @@
 <?php
 require_once '../controlador/clientesController.php';//Decimos que es necesario el archivo ClientesController de la carpeta controlador
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Recoje los datos que se han enviado a traves del formulario para actualizar al cliente
     $id_cliente = $_POST['id_cliente'];
@@ -13,15 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_factura = $_POST['id_factura'];
     $plan = $_POST['plan'];
     $pack = $_POST['pack'];
-    $packadicional = $_POST['pack_adicional'];
     $duracion = $_POST['duracion'];
     $controlador = new ClientesController();//Creamos una nueva instancia del archivo ClientesController.php
-    $controlador->actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion);
+    $resultado = $controlador->actualizarCliente($id_cliente, $nombre, $apellido, $email, $edad, $id_factura, $plan, $pack, $duracion);
     header('Location: ../index.php');
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -73,6 +70,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="Infantil">Infantil</option>
                 </select>
             </div>
+            <div class="form-floating" id="pack_extra" style="display: none;">
+                <select class="form-select" id="pack_adicional" name="pack_adicional">
+                    <option selected>Pack extra</option>
+                    <option value="Deporte,Cine">Deporte, Cine</option>
+                    <option value="Deporte,Infantil">Deporte, Infantil</option>
+                    <option value="Cine,Deporte">Cine, Deporte</option>
+                    <option value="Cine,Infantil">Cine, Infantil</option>
+                    <option value="Infantil,Deporte">Infantil, Deporte</option>
+                    <option value="Infantil,Cine">Infantil, Cine</option>
+                </select>
+            </div>
             <br>
             <div class="form-floating">
                 <select class="form-select" id="duracion" name="duracion" required>
@@ -89,8 +97,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
-
-
-
-
-
