@@ -1,5 +1,6 @@
 <?php
 require_once '../controlador/EventosController.php';
+session_start();
 $controller = new EventosController();
 $eventos = $controller->listarEventos();
 ?>
@@ -38,7 +39,6 @@ $eventos = $controller->listarEventos();
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="lista_socios.php">Lista de los socios</a>
                             <a class="dropdown-item" href="alta_socio.php">Añadir un socio</a>
-                            <a class="dropdown-item" href="eliminar_socio.php">Eliminar un socio</a>
                             <a class="dropdown-item" href="editar_socio.php">Editar un socio</a>
                         </div>
                     </li>
@@ -49,11 +49,11 @@ $eventos = $controller->listarEventos();
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="lista_eventos.php">Lista de los eventos</a>
                             <a class="dropdown-item" href="alta_evento.php">Añadir un evento</a>
-                            <a class="dropdown-item" href="eliminar_evento.php">Eliminar un evento</a>
                             <a class="dropdown-item" href="editar_evento.php">Eliminar un evento</a>
                         </div>
                     </li>
                 </ul>
+                <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
             </div>
         </div>
     </nav>
@@ -76,14 +76,11 @@ $eventos = $controller->listarEventos();
                     <td><?= $evento['fecha'] ?></td>
                     <td><?= $evento['lugar'] ?></td>
                     <td>
-                        <a href="editar_evento.php?id=<?= $evento['id_evento'] ?>" class="btn btn-primary active mb-3" role="button">Editar</a>
                         <a href="eliminar_evento.php?id=<?= $evento['id_evento'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <br>
-    <a href="alta_evento.php" class="btn btn-success active mb-3" role="button">Agregar un nuevo evento</a>
 </body>
 </html>
