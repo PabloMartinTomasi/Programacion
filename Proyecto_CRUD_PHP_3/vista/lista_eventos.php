@@ -52,6 +52,16 @@ $eventos = $controller->listarEventos();
                             <a class="dropdown-item" href="editar_evento.php">Eliminar un evento</a>
                         </div>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
+                            Usuarios
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="">Lista de los usuarios</a>
+                            <a class="dropdown-item" href="">Añadir un usuario</a>
+                            <a class="dropdown-item" href="">Editar un usuario</a>
+                        </div>
+                    </li>
                 </ul>
                 <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
             </div>

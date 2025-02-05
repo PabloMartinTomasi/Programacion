@@ -9,27 +9,60 @@ class InicioSesionController {
     }
 
     public function crear_usuario($usuario, $contrasena, $rol) {
-        $this->modelo->crear_usuario($usuario, $contrasena, $rol);
+        try {
+            $this->modelo->crear_usuario($usuario, $contrasena, $rol);
+            return ['exito' => true, 'mensaje' => 'Usuario creado exitosamente'];
+        } catch (Exception $e) {
+            return ['exito' => false, 'mensaje' => $e->getMessage()];
+        }
     }
 
     public function listarUsuarios() {
-        return $this->modelo->obtener_cliente_registrados();
+        try {
+            return ['exito' => true, 'usuarios' => $this->modelo->obtenerUsuarios()];
+        } catch (Exception $e) {
+            return ['exito' => false, 'mensaje' => $e->getMessage()];
+        }
     }
 
     public function obtenerUsuariosPorID($id_usuario) {
-        return $this->modelo->obtenerUsuariosPorID($id_usuario);
+        try {
+            return ['exito' => true, 'usuario' => $this->modelo->obtenerUsuariosPorID($id_usuario)];
+        } catch (Exception $e) {
+            return ['exito' => false, 'mensaje' => $e->getMessage()];
+        }
     }
 
     public function actualizar($id_usuario, $usuario, $contrasena, $rol) {
-        $this->modelo->actualizar($id_usuario, $usuario, $contrasena, $rol);
+        try {
+            $this->modelo->actualizar($id_usuario, $usuario, $contrasena, $rol);
+            return ['exito' => true, 'mensaje' => 'Usuario actualizado con éxito'];
+        } catch (Exception $e) {
+            return ['exito' => false, 'mensaje' => $e->getMessage()];
+        }
     }
 
     public function eliminarUsuario($id_usuario) {
-        $this->modelo->eliminarUsuario($id_usuario);
+        try {
+            $this->modelo->eliminarUsuario($id_usuario);
+            return ['exito' => true, 'mensaje' => 'Usuario eliminado con éxito'];
+        } catch (Exception $e) {
+            return ['exito' => false, 'mensaje' => $e->getMessage()];
+        }
     }
 
-    public function iniciarSesion($usuario, $contrasena, $esAdmin){
-        $this->modelo->iniciarSesion($usuario, $contrasena, $esAdmin);
+    public function iniciarSesion($usuario, $contrasena, $esAdmin) {
+        try {
+            $resultado = $this->modelo->iniciarSesion($usuario, $contrasena, $esAdmin);
+
+            if ($resultado['exito']) {
+                return ['exito' => true, 'usuario' => $resultado['usuario']];
+            } else {
+                return ['exito' => false, 'mensaje' => $resultado['error']];
+            }
+        } catch (Exception $e) {
+            return ['exito' => false, 'mensaje' => 'Error en el proceso de inicio de sesión: ' . $e->getMessage()];
+        }
     }
 }
 ?>

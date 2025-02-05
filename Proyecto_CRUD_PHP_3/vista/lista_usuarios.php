@@ -1,12 +1,8 @@
 <?php
-require_once '../controlador/SociosController.php';
+require_once '../controlador/InicioSesionController.php';
 session_start();
-if (!isset($_SESSION['User']) && !isset($_SESSION['Admin'])) {
-    header("Location: login_socios.php");
-    exit();
-}
-$controller = new SociosController();
-$socios = $controller->listarSocios();
+$controller = new InicioSesionController();
+$usuarios = $controller->listarUsuarios();
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +56,7 @@ $socios = $controller->listarSocios();
                             Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lista_usuarios.php">Lista de los usuarios</a>
+                            <a class="dropdown-item" href="">Lista de los usuarios</a>
                             <a class="dropdown-item" href="alta_usuario.php">Añadir un usuario</a>
                             <a class="dropdown-item" href="">Editar un usuario</a>
                         </div>
@@ -70,30 +66,26 @@ $socios = $controller->listarSocios();
             </div>
         </div>
     </nav>
-    <h1>Socios Registrados</h1>
+    <h1>Usuarios</h1>
     <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Fecha de Nacimiento</th>
+                    <th>Usuario</th>
+                    <th>Contraseña</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($socios as $socio): ?>
+                <?php foreach ($usuarios as $usuario): ?>
                     <tr>
-                        <td><?= $socio['id_socio'] ?></td>
-                        <td><?= $socio['nombre'] ?></td>
-                        <td><?= $socio['apellido'] ?></td>
-                        <td><?= $socio['email'] ?></td>
-                        <td><?= $socio['telefono'] ?></td>
-                        <td><?= $socio['fecha_nacimiento'] ?></td>
+                        <td><?= $usuario['id_usuario'] ?></td>
+                        <td><?= $usuario['usuario'] ?></td>
+                        <td><?= $usuario['contrasena'] ?></td>
+                        <td><?= $usuario['rol'] ?></td>
                         <td>
-                            <a href="eliminar_socio.php?id=<?= $socio['id_socio'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
+                            <a href="eliminar_socio.php?id=<?= $usuario['id_socio'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
