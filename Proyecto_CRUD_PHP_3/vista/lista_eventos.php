@@ -49,7 +49,7 @@ $eventos = $controller->listarEventos();
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="lista_eventos.php">Lista de los eventos</a>
                             <a class="dropdown-item" href="alta_evento.php">Añadir un evento</a>
-                            <a class="dropdown-item" href="editar_evento.php">Eliminar un evento</a>
+                            <a class="dropdown-item" href="editar_evento.php">Editar un evento</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -57,8 +57,8 @@ $eventos = $controller->listarEventos();
                             Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">Lista de los usuarios</a>
-                            <a class="dropdown-item" href="">Añadir un usuario</a>
+                            <a class="dropdown-item" href="lista_usuarios.php">Lista de los usuarios</a>
+                            <a class="dropdown-item" href="alta_usuario.php">Añadir un usuario</a>
                             <a class="dropdown-item" href="">Editar un usuario</a>
                         </div>
                     </li>

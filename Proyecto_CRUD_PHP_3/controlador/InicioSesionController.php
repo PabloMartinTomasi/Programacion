@@ -17,12 +17,14 @@ class InicioSesionController {
         }
     }
 
-    public function listarUsuarios() {
-        try {
-            return ['exito' => true, 'usuarios' => $this->modelo->obtenerUsuarios()];
-        } catch (Exception $e) {
-            return ['exito' => false, 'mensaje' => $e->getMessage()];
+    public function listarUsuarios(){
+        $usuarios = $this->modelo->obtenerUsuarios();
+
+        if ($usuarios === false) {
+            return [];
         }
+
+        return $usuarios;
     }
 
     public function obtenerUsuariosPorID($id_usuario) {

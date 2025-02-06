@@ -11,14 +11,16 @@ $socios = $controller->listarSocios();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo/#.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZwv-model-vue1T" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZwv-model-vue1T" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -26,8 +28,9 @@ $socios = $controller->listarSocios();
     <link href="css/estilo.css" rel="stylesheet">
     <title>Listado de Socios</title>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Club Deportivo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,32 +75,33 @@ $socios = $controller->listarSocios();
     </nav>
     <h1>Socios Registrados</h1>
     <table class="table">
-            <thead>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($socios as $socio): ?>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Acciones</th>
+                    <td><?= $socio['id_socio'] ?></td>
+                    <td><?= $socio['nombre'] ?></td>
+                    <td><?= $socio['apellido'] ?></td>
+                    <td><?= $socio['email'] ?></td>
+                    <td><?= $socio['telefono'] ?></td>
+                    <td><?= $socio['fecha_nacimiento'] ?></td>
+                    <td>
+                        <a href="eliminar_socio.php?id=<?= $socio['id_socio'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($socios as $socio): ?>
-                    <tr>
-                        <td><?= $socio['id_socio'] ?></td>
-                        <td><?= $socio['nombre'] ?></td>
-                        <td><?= $socio['apellido'] ?></td>
-                        <td><?= $socio['email'] ?></td>
-                        <td><?= $socio['telefono'] ?></td>
-                        <td><?= $socio['fecha_nacimiento'] ?></td>
-                        <td>
-                            <a href="eliminar_socio.php?id=<?= $socio['id_socio'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
+            <?php endforeach; ?>
+        </tbody>
     </table>
 </body>
+
 </html>

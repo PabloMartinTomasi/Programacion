@@ -1,17 +1,15 @@
 <?php
-require_once '../controlador/SociosController.php';
+require_once '../controlador/InicioSesionController.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_socio = $_POST['id_socio'];
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $email = $_POST['email'];
-    $telefono = $_POST['telefono'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $controlador = new SociosController();
-    $resultado = $controlador->actualizarSocio($id_socio, $nombre, $apellido, $email, $telefono, $fecha_nacimiento);
-    header('Location: ../vista/lista_socios.php');
+    $id_usuario = $_POST['id_usuario'];
+    $usuario = $_POST['usuario'];
+    $contrasena = $_POST['contrasena'];
+    $rol = $_POST['rol'];
+    $controlador = new InicioSesionController();
+    $resultado = $controlador->actualizar($id_usuario, $usuario, $contrasena, $rol);
+    header('Location: ../vista/lista_usuarios.php');
     exit();
 }
 ?>
@@ -35,30 +33,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container mt-4">
         <h1>Editar Socio</h1>
-        <form action="editar_socio.php" method="POST">
+        <form action="editar_usuario.php" method="POST">
         <div class="mb-3">
-                <label for="id_socio" class="form-label">ID</label>
-                <input type="number" class="form-control" id="id_socio" name="id_socio" required>
+                <label for="id_usuario" class="form-label">ID</label>
+                <input type="number" class="form-control" id="id_usuario" name="id_usuario" required>
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <label for="usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" required>
             </div>
             <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Telefono</label>
-                <input type="number" class="form-control" id="telefono" name="telefono" required>
-            </div>
-            <div class="mb-3">
-                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            <div class="form-floating">
+                <select class="form-select" id="rol" name="rol" required>
+                    <option selected>Rol</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>

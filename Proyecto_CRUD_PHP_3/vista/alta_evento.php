@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lugar = $_POST['lugar'];
     $controlador = new EventosController();
     $resultado = $controlador->agregarEvento($nombre_evento, $fecha, $lugar);
-    header('Location: ../index.php');
+    header('Location: ../vista/lista_eventos.php');
     exit();
 }
 ?>

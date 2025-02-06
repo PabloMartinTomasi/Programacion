@@ -3,10 +3,10 @@ require_once '../controlador/SociosController.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_socio = $_POST['id'];
+    $id_usuario = $_POST['id'];
     $controlador = new SociosController();
     $resultado = $controlador->eliminarSocio($id_socio);
-    header('Location: ../index.php');
+    header('Location: ../vista/lista_socios.php');
     exit();
 }
 ?>

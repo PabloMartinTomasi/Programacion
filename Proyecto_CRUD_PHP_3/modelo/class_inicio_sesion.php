@@ -16,12 +16,9 @@ class Inicio_sesion
             throw new Exception("Rol no válido. Debe ser 'admin' o 'user'.");
         }
 
-        // Contraseña cifrada
-        $contrasena_cifrada = password_hash($contrasena, PASSWORD_DEFAULT);
-
         $query = "INSERT INTO usuarios (usuario, contrasena, rol) VALUES (?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("sss", $usuario, $contrasena_cifrada, $rol);
+        $stmt->bind_param("sss", $usuario, $contrasena, $rol);
 
         if ($stmt->execute()) {
             return "Cuenta del usuario agregada con éxito";
@@ -34,11 +31,11 @@ class Inicio_sesion
 
     public function obtenerUsuarios()
     {
-        $query = "SELECT * FROM usuarios";
+        $query = "SELECT id_usuario, usuario, contrasena, rol FROM usuarios";
         $resultado = $this->conexion->conexion->query($query);
 
         if ($resultado === false) {
-            throw new Exception("Error en la consulta de usuarios: " . $this->conexion->conexion->error);
+            die("Error en la consulta de usuarios: " . $this->conexion->conexion->error);
         }
 
         $usuarios = [];
@@ -46,12 +43,10 @@ class Inicio_sesion
             $usuarios[] = $fila;
         }
 
-        if (empty($usuarios)) {
-            throw new Exception("No se encontraron usuarios en la base de datos.");
-        }
 
         return $usuarios;
     }
+
 
     public function obtenerUsuariosPorID($id_usuario)
     {
@@ -63,19 +58,15 @@ class Inicio_sesion
         return $resultado->fetch_assoc();
     }
 
-    public function actualizar($id_usuario, $usuario, $contrasena, $rol)
+    public function actualizar($id_usuario, $usuario, $password, $rol)
     {
-        // Verificar si el rol es válido
         if (!in_array($rol, ['admin', 'user'])) {
             throw new Exception("Rol no válido. Debe ser 'admin' o 'user'.");
         }
 
-        // Contraseña cifrada
-        $contrasena_cifrada = password_hash($contrasena, PASSWORD_DEFAULT);
-
         $query = "UPDATE usuarios SET usuario = ?, contrasena = ?, rol = ? WHERE id_usuario = ?";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("sssi", $usuario, $contrasena_cifrada, $rol, $id_usuario);
+        $stmt->bind_param("sssi", $usuario, $contrasena, $rol, $id_usuario);
 
         if ($stmt->execute()) {
             return "Usuario actualizado con éxito.";
@@ -124,10 +115,7 @@ class Inicio_sesion
             return ['exito' => false, 'error' => 'Usuario o contraseña incorrectos'];
         }
     
-        echo "🔹 Contraseña ingresada: " . $contrasena . "<br>";
-        echo "🔹 Contraseña en la BD: " . $usuarioBD['contrasena'] . "<br>";
-    
-        if (password_verify($contrasena, $usuarioBD['contrasena'])) {
+        if (password_verify($password, $usuarioBD['contrasena'])) {
             echo "Coincide";
             exit();
             return ['exito' => true, 'usuario' => $usuarioBD];

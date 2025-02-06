@@ -1,18 +1,18 @@
 <?php
-require_once '../controlador/EventosController.php';
+require_once '../controlador/InicioSesionController.php';
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $id_evento = $_POST['id'];
-    $controlador = new EventosController();
-    $resultado = $controlador->eliminarEvento($id_evento);
-    header('Location: ../vista/lista_eventos.php');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_usuario = $_POST['id'];
+    $controlador = new InicioSesionController();
+    $resultado = $controlador->eliminarUsuario($id_usuario);
+    header('Location: ../vista/lista_usuarios.php');
     exit();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,12 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="css/estilo.css" rel="stylesheet">
-    <title>Eliminar Evento</title>
+    <title>Eliminar Usuario</title>
 </head>
 <body>
-<div class="container mt-4">
-        <h1>Eliminar Evento</h1>
-        <form action="eliminar_evento.php" method="POST">
+    <div class="container mt-4">
+        <h1>Eliminar Usuario</h1>
+        <form action="eliminar_usuario.php" method="POST">
             <div class="mb-3">
                 <label for="id" class="form-label">ID</label>
                 <input type="number" class="form-control" id="id" name="id" required>

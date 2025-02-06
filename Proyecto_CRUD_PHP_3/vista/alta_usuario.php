@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rol = $_POST['rol'];
     $controlador = new InicioSesionController();
     $resultado = $controlador->crear_usuario($usuario, $contrasena, $rol);
-    header('Location: ../lista_socios.php');
+    header('Location: ../vista/lista_usuarios.php');
     exit();
 }
 ?>
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="css/estilo.css" rel="stylesheet">
-    <title>Añadir Socio</title>
+    <title>Añadir Usuario</title>
 </head>
 <body>
     <div class="container mt-4">
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contrasena</label>
-                <input type="text" class="form-control" id="contrasena" name="contrasena" required>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
             </div>
             <div class="form-floating">
                 <select class="form-select" id="rol" name="rol" required>

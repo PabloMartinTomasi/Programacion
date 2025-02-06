@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $controlador = new SociosController();
     $resultado = $controlador->agregarSocio($nombre, $apellido, $email, $telefono, $fecha_nacimiento);
-    header('Location: ../index.php');
+    header('Location: ../vista/lista_socios.php');
     exit();
 }
 ?>
