@@ -1,9 +1,9 @@
 <?php
 class Conexion {
-    private $servidor = 'localhost';
-    private $usuario = 'root';
-    private $password = 'curso';
-    private $base_datos = 'gestion_tareas';
+    private $servidor = 'localhost'; // Nombre del servidor de la BBDD
+    private $usuario = 'root'; // Nombre del usuario de la BBDD
+    private $password = 'curso'; // Nombre del contraseña de la BBDD
+    private $base_datos = 'gestion_tareas'; // Nombre de la BBDD
     public $conexion;
 
     public function __construct() {

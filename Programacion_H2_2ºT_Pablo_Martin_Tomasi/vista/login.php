@@ -1,11 +1,24 @@
 <?php
 session_start();
+require_once '../controlador/iniciar_sesion_controller.php';
 
-if ($_POST['usuario'] == 'admin' && $_POST['contrasena'] == '1234') {
-    $_SESSION['usuario'] = 'admin';
-    header("Location: lista_tareas.php");
-} else {
-    echo "Usuario o contraseña incorrectos.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $usuario = trim($_POST['usuario']);
+    $contrasena = trim($_POST['contrasena']);
+
+    var_dump($usuario);
+    var_dump($contrasena);
+
+    $controlador = new IniciarSesionController();
+    $resultado = $controlador->iniciar_sesion($usuario, $contrasena);
+
+    if ($resultado) {
+        $_SESSION['usuario'] = $resultado['usuario'];
+        header("Location: lista_tareas.php");
+        exit();
+    } else {
+        echo "Usuario o contraseña incorrectos.";
+    }
 }
 ?>
 
@@ -30,14 +43,14 @@ if ($_POST['usuario'] == 'admin' && $_POST['contrasena'] == '1234') {
 <body>
     <div class="container mt-4">
         <h1>Iniciar sesión</h1>
-        <form method="post">
+        <form action="login.php" method="post">
             <div class="mb-3">
                 <label for="usuario" class="form-label">Usuario:</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" required><br>
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="usuario" required><br>
             </div>
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required><br>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="contrasena" required><br>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
@@ -49,4 +62,3 @@ if ($_POST['usuario'] == 'admin' && $_POST['contrasena'] == '1234') {
     </div>
 </body>
 </html>
-

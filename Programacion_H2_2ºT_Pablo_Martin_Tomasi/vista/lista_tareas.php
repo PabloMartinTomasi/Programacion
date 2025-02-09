@@ -1,13 +1,16 @@
 <?php
+require_once '../controlador/tareas_controller.php';
 session_start();
 if (!isset($_SESSION['usuario'])){
-    header("Location: login.php");
+    header("Location: logout.php");//Redirigir al usuario si no esta logueado
     exit();
 }
+$controller = new TareasController();
+$tareas = $controller->obtener_tareas();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -26,5 +29,29 @@ if (!isset($_SESSION['usuario'])){
     <h1>samiop</h1>
     <a href="crear_tarea.php" class="btn btn-danger active mb-3" role="button">Cerrar sesióna</a>
     <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
+
+
+    <h1>Listado de tareas</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>nombre_tarea</th>
+                <th>descripcion_tarea</th>
+                <th>estado_tarea</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($tareas as $tarea): ?>
+                <tr>
+                    <td><?= $tarea['id_usuario']?></td>
+                    <td><?= $tarea['nombre_tarea']?></td>
+                    <td><?= $tarea['descripcion_tarea']?></td>
+                    <td><?= $tarea['estado_tarea']?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <a href="crear_tarea.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
 </body>
 </html>

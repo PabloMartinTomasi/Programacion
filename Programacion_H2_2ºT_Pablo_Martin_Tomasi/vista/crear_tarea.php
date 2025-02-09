@@ -1,3 +1,18 @@
+<?php
+require_once '../controlador/tareas_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $id_usuario = $_POST['id_usuario'];
+    $nombre_tarea = $_POST['nombre_tarea'];
+    $descripcion_tarea = $_POST['descripcion_tarea'];
+    $estado_tarea = $_POST['estado_tarea'];
+    $controlador = new TareasController();
+    $resultado = $controlador->crear_tarea($id_usuario, $nombre_tarea, $descripcion_tarea, $estado_tarea);
+    header('Location: ../vista/lista_tareas.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,9 +27,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="../css/estilo.css" rel="stylesheet">
-    <title>Listado de las tareas</title>
+    <title>Crear tarea</title>
 </head>
 <body>
-    <h1>hola</h1>
+<div class="container mt-4">
+        <h1>Crear tarea</h1>
+        <form action="crear_tarea.php" method="post">
+            <div class="mb-3">
+                <label for="id_usuario" class="form-label">id_usuario:</label>
+                <input type="number" class="form-control" id="id_usuario" name="id_usuario" required><br>
+            </div>
+            <div class="mb-3">
+                <label for="nombre_tarea" class="form-label">nombre_tarea:</label>
+                <input type="text" class="form-control" id="nombre_tarea" name="nombre_tarea" required><br>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion_tarea" class="form-label">descripcion_tarea:</label>
+                <input type="text" class="form-control" id="descripcion_tarea" name="descripcion_tarea" required><br>
+            </div>
+            <div class="mb-3">
+                <label for="estado_tarea" class="form-label">estado_tarea:</label>
+                <input type="text" class="form-control" id="estado_tarea" name="estado_tarea" required><br>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Crear tarea" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

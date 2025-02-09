@@ -13,9 +13,9 @@ create table usuarios(
 create table tareas(
 	id_tarea int auto_increment primary key,
     id_usuario int,
-    nombre_tarea varchar(100) not null,
-    descripcion_tarea varchar(200) not null,
-    estado_tarea enum("En proceso", "Completada") not null,
+    nombre_tarea varchar(100) NOT NULL,
+    descripcion_tarea varchar(200) NOT NULL,
+    estado_tarea enum("En proceso", "Completada") NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
 
@@ -32,9 +32,9 @@ insert into usuarios(usuario, telefono, email, contrasena) VALUES
 
 
 insert into tareas(id_usuario, nombre_tarea, descripcion_tarea, estado_tarea) 
-select id_usuario, 'hacera la colada', 'secara la ropa', 'Completada'
+select id_usuario, 'hacera la colsadaada', 'secaara la ropa', 'Completada'
 from usuarios
-WHERE id_usuario = 1;
+WHERE id_usuario = 2;
 
 
 
