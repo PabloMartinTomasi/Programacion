@@ -1,3 +1,17 @@
+<?php
+require_once '../controlador/iniciar_sesion_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $email = $_POST['email'];
+    $usuario = $_POST['usuario'];
+    $contrasena = $_POST['contrasena'];
+    $controlador = new IniciarSesionController();
+    $resultado = $controlador->crear_usuario($email, $usuario, $contrasena);
+    header('Location: login.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +26,29 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="../css/estilo.css" rel="stylesheet">
-    <title>sadsaf</title>
+    <title>Registro de usuario</title>
 </head>
 <body>
-    <a href="login.php" class="btn btn-primary active mb-3" role="button">Registro completado</a>
+
+    <div class="container mt-4">
+        <h1>Crear cuenta</h1>
+        <form action="registrar_nuevo_usuario.php" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Coreo electronico:</label>
+                <input type="email" class="form-control" id="email" name="email" required><br>
+            </div>
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario:</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" required><br>
+            </div>
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contrasena:</label>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" required><br>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Completar registro" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

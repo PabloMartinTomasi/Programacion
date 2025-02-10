@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $estado_tarea = $_POST['estado_tarea'];
     $controlador = new TareasController();
     $resultado = $controlador->crear_tarea($id_usuario, $nombre_tarea, $descripcion_tarea, $estado_tarea);
-    header('Location: ../vista/lista_tareas.php');
+    header('Location: ../lista_tareas.php');
     exit();
 }
 ?>
@@ -30,13 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>Crear tarea</title>
 </head>
 <body>
-<div class="container mt-4">
+    <div class="container mt-4">
         <h1>Crear tarea</h1>
         <form action="crear_tarea.php" method="post">
-            <div class="mb-3">
-                <label for="id_usuario" class="form-label">id_usuario:</label>
-                <input type="number" class="form-control" id="id_usuario" name="id_usuario" required><br>
-            </div>
             <div class="mb-3">
                 <label for="nombre_tarea" class="form-label">nombre_tarea:</label>
                 <input type="text" class="form-control" id="nombre_tarea" name="nombre_tarea" required><br>

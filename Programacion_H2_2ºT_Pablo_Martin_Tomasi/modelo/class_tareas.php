@@ -8,11 +8,11 @@ class Tareas{
         $this->conexion = new Conexion();
     }
 
-    public function crear_tarea($id_usuario, $nombre_tarea, $descripcion_tarea, $estado_tarea){ //Function para poder crear una nueva tarea
-        $query_tarea = "INSERT INTO tareas (id_usuario, nombre_tarea, descripcion_tarea, estado_tarea) 
-                VALUES (?, ?, ?, ?)"; //Con este insert into, vamos a crear una nueva tarea con el id de usuario que hemos selcionado
+    public function crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea){ //Function para poder crear una nueva tarea
+        $query_tarea = "INSERT INTO tareas (nombre_tarea, descripcion_tarea, estado_tarea) 
+                VALUES (?, ?, ?)"; //Con este insert into, vamos a crear una nueva tarea con el id de usuario que hemos selcionado
         $stmt = $this->conexion->conexion->prepare($query_tarea);
-        $stmt->bind_param("isss", $id_usuario, $nombre_tarea, $descripcion_tarea, $estado_tarea);
+        $stmt->bind_param("sss", $nombre_tarea, $descripcion_tarea, $estado_tarea);
 
         if ($stmt->execute()) {
             return "Tarea creada con éxito";

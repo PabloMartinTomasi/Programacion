@@ -8,6 +8,22 @@ class IniciarSesion {
         $this->conexion = new Conexion();
     }
 
+    public function crear_usuario($email, $usuario, $contrasena){
+        $query = "INSERT INTO usuarios (email, usuario, contrasena)
+                VALUES (?, ?, ?)"; //Hacemos un insert into para la tabla del usuario, para obtener sus datos
+
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("sss",$email, $usuario, $contrasena);
+
+        if ($stmt->execute()) {
+            return "Usuario creado con éxito";
+        } else {
+            throw new Exception("Error al crear el usuario: " . $stmt->error);
+        }
+
+        $stmt->close();
+    }
+
     public function iniciar_sesion($usuario, $contrasena) {
         $query = "SELECT * FROM usuarios WHERE usuario = ?";
         $stmt = $this->conexion->conexion->prepare($query);
@@ -15,18 +31,16 @@ class IniciarSesion {
         $stmt->execute();
         $resultado = $stmt->get_result();
     
-        // Depuración: Ver si se encuentra algún usuario
         if ($resultado->num_rows > 0) {
             $usuarioDB = $resultado->fetch_assoc();
-            var_dump($usuarioDB); // Verifica qué datos trae el usuario
     
             if (password_verify($contrasena, $usuarioDB['contrasena'])) {
                 return $usuarioDB;
             } else {
-                echo "Contraseña incorrecta."; // Depuración
+                echo "Contraseña incorrecta.";
             }
         } else {
-            echo "Usuario no encontrado."; // Depuración
+            echo "Usuario no encontrado.";
         }
     
         return null;

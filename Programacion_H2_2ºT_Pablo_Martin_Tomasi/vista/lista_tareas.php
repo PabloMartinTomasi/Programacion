@@ -2,7 +2,7 @@
 require_once '../controlador/tareas_controller.php';
 session_start();
 if (!isset($_SESSION['usuario'])){
-    header("Location: logout.php");//Redirigir al usuario si no esta logueado
+    header('Location: ../login.php');//Redirigir al usuario si no esta logueado
     exit();
 }
 $controller = new TareasController();
@@ -26,16 +26,32 @@ $tareas = $controller->obtener_tareas();
     <title>Listado de las tareas</title>
 </head>
 <body>
-    <h1>samiop</h1>
-    <a href="crear_tarea.php" class="btn btn-danger active mb-3" role="button">Cerrar sesióna</a>
-    <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
-
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Gestor de tareas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tareas
+                        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="lista_tareas.php">Lista de las tareas</a>
+                        <a class="dropdown-item" href="crear_tarea.php">Añadir tarea</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
+            </form>
+        </div>
+    </nav>
     <h1>Listado de tareas</h1>
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>nombre_tarea</th>
                 <th>descripcion_tarea</th>
                 <th>estado_tarea</th>
@@ -44,7 +60,6 @@ $tareas = $controller->obtener_tareas();
         <tbody>
             <?php foreach ($tareas as $tarea): ?>
                 <tr>
-                    <td><?= $tarea['id_usuario']?></td>
                     <td><?= $tarea['nombre_tarea']?></td>
                     <td><?= $tarea['descripcion_tarea']?></td>
                     <td><?= $tarea['estado_tarea']?></td>
@@ -52,6 +67,5 @@ $tareas = $controller->obtener_tareas();
             <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="crear_tarea.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
 </body>
 </html>

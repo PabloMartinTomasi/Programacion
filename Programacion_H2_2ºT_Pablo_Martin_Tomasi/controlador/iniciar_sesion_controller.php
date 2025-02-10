@@ -8,6 +8,10 @@ class IniciarSesionController {
         $this->modelo = new IniciarSesion();
     }
 
+    public function crear_usuario($email, $usuario, $contrasena){
+        $this->modelo->crear_usuario($email, $usuario, $contrasena);
+    }
+
     public function iniciar_sesion($usuario, $contrasena) {
         if (empty($usuario) || empty($contrasena)) {
             return null;

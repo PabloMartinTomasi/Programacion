@@ -1,13 +1,12 @@
 <?php
 session_start();
 require_once '../controlador/iniciar_sesion_controller.php';
+error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = trim($_POST['usuario']);
     $contrasena = trim($_POST['contrasena']);
-
-    var_dump($usuario);
-    var_dump($contrasena);
+    $hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
     $controlador = new IniciarSesionController();
     $resultado = $controlador->iniciar_sesion($usuario, $contrasena);
@@ -22,9 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="../css/estilo.css" rel="stylesheet">
-    <title>Login</title>
+    <title>Iniciar sesión</title>
 </head>
 <body>
     <div class="container mt-4">
@@ -46,17 +44,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="login.php" method="post">
             <div class="mb-3">
                 <label for="usuario" class="form-label">Usuario:</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="usuario" required><br>
+                <input type="text" class="form-control" name="usuario" required><br>
             </div>
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="contrasena" required><br>
+                <input type="password" class="form-control" name="contrasena" required><br>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
             </div>
             <div class="mb-3">
-                <a href="registrar_nuevo_usuario.php" class="btn btn-primary active mb-3" role="button">Registrarse</a>
+                <a href="registrar_nuevo_usuario.php" class="btn btn-success active mb-3" role="button">Registrarse</a>
             </div>
         </form>
     </div>
