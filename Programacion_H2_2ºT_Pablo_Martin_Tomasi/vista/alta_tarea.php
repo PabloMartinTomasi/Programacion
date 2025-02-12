@@ -1,16 +1,21 @@
 <?php
-require_once '../controlador/usuario_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
+require_once '../controlador/tareas_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
+session_start();
+if (!isset($_SESSION['email'])) {
+    throw new Exception("Error: No hay un usuario autenticado.");
+}
+$email = $_SESSION['email'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $email = $_POST['email'];
-    $nombre = $_POST['nombre'];
-    $contrasena = $_POST['contrasena'];
-    $controlador = new IniciarSesionController();
-    $resultado = $controlador-> registrar_usuario($email, $nombre, $contrasena);
-    header('Location: ../vista/login.php');
+    $nombre_tarea = $_POST['nombre_tarea'];
+    $descripcion_tarea = $_POST['descripcion_tarea'];
+    $estado_tarea = $_POST['estado_tarea'];
+    $$email = $_POST['email'];
+    $controlador = new TareasController();
+    $resultado = $controlador->crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea, $email);
+    header('Location: ../vista/lista_tareas.php');
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -27,26 +32,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="../css/estilo.css" rel="stylesheet">
-    <title>Crear cuenta</title>
+    <title>Crear tarea</title>
 </head>
 <body>
     <div class="container mt-4">
-        <h1>Crear cuenta</h1>
-        <form action="../vista/registrar_nuevo_usuario.php" method="post">
+        <h1>Crear tarea</h1>
+        <form action="alta_tarea.php" method="post">
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required><br>
+                <label for="nombre_tarea" class="form-label">nombre_tarea:</label>
+                <input type="text" class="form-control" id="nombre_tarea" name="nombre_tarea" required><br>
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required><br>
+                <label for="descripcion_tarea" class="form-label">descripcion_tarea:</label>
+                <input type="text" class="form-control" id="descripcion_tarea" name="descripcion_tarea" required><br>
             </div>
+            <div class="form-floating">
+                <select class="form-select" id="estado_tarea" name="estado_tarea" require>
+                    <option value="" disabled selected>Estado de la tarea</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Completada">Completada</option>
+                    <option value="Pausada">Pausada</option>
+                </select>
+            </div><br>
             <div class="mb-3">
-                <label for="contrasena" class="form-label">contrasena:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required><br>
-            </div>
-            <div class="mb-3">
-                <input type="submit" value="Crear cuenta" class="btn btn-primary">
+                <input type="submit" value="Crear tarea" class="btn btn-primary">
             </div>
         </form>
     </div>

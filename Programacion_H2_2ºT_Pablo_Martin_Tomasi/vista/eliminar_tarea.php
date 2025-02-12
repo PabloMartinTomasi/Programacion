@@ -1,29 +1,19 @@
 <?php
+require_once '../controlador/tareas_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
 session_start();
-require_once '../controlador/usuario_controller.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $contrasena = $_POST['contrasena'];
-
-    $controlador = new IniciarSesionController();
-    $resultado = $controlador->iniciar_sesion($email, $contrasena);
-
-    if (is_string($resultado)) {
-        $_SESSION['error'] = $resultado;
-        echo "<div class='p-3 mb-2 bg-danger'>La contraseña o el email estan incorectos</div>";
-    } else {
-        $_SESSION['email'] = $resultado['email'];
-        header("Location: lista_tareas.php");
-        exit();
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $id_tarea = $_POST['id_tarea'];
+    $controlador = new TareasController();
+    $resultado = $controlador->elimnar_tarea($id_tarea);
+    header('Location: ../vista/lista_tareas.php');
+    exit();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo/#.css">
@@ -34,26 +24,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link href="../css/estilo.css" rel="stylesheet">
-    <title>Login</title>
+    <title>Eliminar tarea</title>
 </head>
 <body>
     <div class="container mt-4">
-        <h1>Iniciar sesión</h1>
-        <form action="login.php" method="post">
+        <h1>Eliminar tarea</h1>
+        <form action="eliminar_tarea.php" method="post">
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required><br>
+                <label for="id_tarea" class="form-label">ID la tarea:</label>
+                <input type="number" class="form-control" id="id_tarea" name="id_tarea" required><br>
             </div>
             <div class="mb-3">
-                <label for="contrasena" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required><br>
-            </div>
-            <div class="mb-3">
-                <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
-            </div>
-            <div class="mb-3">
-                <a href="registrar_nuevo_usuario.php" class="btn btn-primary active mb-3" role="button">Registrarse</a>
+                <input type="submit" value="Eliminar tarea" class="btn btn-danger">
             </div>
         </form>
     </div>

@@ -8,12 +8,26 @@ class TareasController{
         $this->modelo = new Tareas();
     }
 
-    public function crear_tarea($id_usuario, $nombre_tarea, $descripcion_tarea, $estado_tarea){//Nos va a servir para cuando el cliente, el formulario tenga que añadir una nueva tarea
-        $this->modelo->crear_tarea($id_usuario, $nombre_tarea, $descripcion_tarea, $estado_tarea);
+    public function crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea, $email){//Nos va a servir para cuando el cliente, el formulario tenga que añadir una nueva tarea
+        $this->modelo->crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea, $email);
     }
 
-    public function obtener_tareas(){//Nos va a servir para poder ver las tareas que tiene que hacer el cliente
-        return $this->modelo->obtener_tareas();
+    public function obtener_tareas($email) {
+        if (empty($email)) {
+            return 'Por favor, complete todos los campos.';
+        }
+
+        $tareas  = $this->modelo->obtener_tareas($email);
+
+        if (!empty($tareas)) {
+            return $tareas;
+        } else {
+            return 'No hay tareas disponibles para este usuario.';
+        }
+    }
+
+    public function elimnar_tarea($id_tarea){
+        $this->modelo->elimnar_tarea($id_tarea);
     }
 }
 ?>

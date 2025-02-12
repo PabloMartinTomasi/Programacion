@@ -1,18 +1,19 @@
 <?php
 require_once '../controlador/tareas_controller.php';
 session_start();
-if (!isset($_SESSION['usuario'])){
+if (!isset($_SESSION['email'])){
     header('Location: ../login.php');//Redirigir al usuario si no esta logueado
     exit();
 }
+$email = $_SESSION['email'];
 $controller = new TareasController();
-$tareas = $controller->obtener_tareas();
+$tareas = $controller->obtener_tareas($email);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo/#.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -26,8 +27,8 @@ $tareas = $controller->obtener_tareas();
     <title>Listado de las tareas</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Gestor de tareas</a>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Gestor de las tareas</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,30 +40,41 @@ $tareas = $controller->obtener_tareas();
                         </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="lista_tareas.php">Lista de las tareas</a>
-                        <a class="dropdown-item" href="crear_tarea.php">Añadir tarea</a>
+                        <a class="dropdown-item" href="alta_tarea.php">Añadir tarea</a>
                     </div>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
-            </form>
+            <div class="ms-auto">
+                <?php
+                    echo "<p>Bienvenido {$email}</p>";
+                ?>
+            </div>
+            <div class="ms-auto">
+                <form class="form-inline my-2 my-lg-0">
+                    <a href="login.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
+                </form>
+            </div>
         </div>
     </nav>
-    <h1>Listado de tareas</h1>
+    <h1>Listado de las tareas</h1>
     <table class="table">
         <thead>
             <tr>
-                <th>nombre_tarea</th>
-                <th>descripcion_tarea</th>
-                <th>estado_tarea</th>
+                <th>ID de la tarea</th>
+                <th>Nombre de la tarea</th>
+                <th>Descripcion de la tarea</th>
+                <th>Estado de la tarea</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($tareas as $tarea): ?>
                 <tr>
+                    <td><?= $tarea['id_tarea']?></td>
                     <td><?= $tarea['nombre_tarea']?></td>
                     <td><?= $tarea['descripcion_tarea']?></td>
                     <td><?= $tarea['estado_tarea']?></td>
+                    <td><a href="eliminar_tarea.php" class="btn btn-danger active mb-3" role="button">Eliminar tarea</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

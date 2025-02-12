@@ -1,46 +1,53 @@
 <?php
-require_once '../config/conexion.php';
+require_once '../config/conexion.php'; // Conexión a la base de datos
 
-class Usuario {
+class IniciarSesion {
     private $conexion;
 
     public function __construct() {
         $this->conexion = new Conexion();
     }
 
-    public function CrearCuenta($nombre_usuario, $telefono, $email, $contrasena) {
-        $query = "INSERT INTO usuarios (nombre_usuario, telefono, email, contrasena) VALUES (?, ?, ?, ?)";
+    public function iniciar_sesion($email, $contrasena) {
+        $query = "SELECT * FROM usuarios WHERE email = ?";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("ssss", $nombre_usuario, $telefono, $email, $contrasena);
+        
+        if ($stmt === false) {
+            die('Error al preparar la consulta: ' . $this->conexion->conexion->error);
+        }
 
-        if ($stmt->execute()) {
-            echo "Usuario creado con éxito.";
+        $stmt->bind_param("s", $email);
+    
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        
+        if ($resultado->num_rows > 0) {
+            $emailDB = $resultado->fetch_assoc();
+            if (password_verify($contrasena, $emailDB['contrasena'])) {
+                return $emailDB;
+            } else {
+                return null;
+            }
         } else {
-            echo "Error al crear usuario: " . $stmt->error;
+            return null;
         }
 
         $stmt->close();
+        $this->conexion->conexion->close();
     }
 
-    public function obtenerUsurio() {
-        $query = "SELECT * FROM usuarios";
-        $resultado = $this->conexion->conexion->query($query);
-        $usuarios = [];
-        while ($fila = $resultado->fetch_assoc()) {
-            $usuarios[] = $fila;
-        }
-        return $usuarios;
-    }
+    public function registrar_usuario($email, $nombre, $contrasena){
+        $encriptar_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
 
-    public function obtenerUsurioo($nombre_usuario) {
-        $query = "SELECT * FROM usuarios 
-                    where nombre_usuario = ? ";
+        $query = "INSERT INTO usuarios (email, nombre, contrasena) VALUES (?, ?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("s", $nombre_usuario);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        return $resultado->fetch_assoc();
-    }
+        $stmt->bind_param("sss", $email, $nombre, $encriptar_contrasena);
 
+        if ($stmt->execute()) {
+            return "Usuario registrado con éxito";
+        } else {
+            return "Error al registrar el usuario";
+        }
+    }
 }
 ?>
