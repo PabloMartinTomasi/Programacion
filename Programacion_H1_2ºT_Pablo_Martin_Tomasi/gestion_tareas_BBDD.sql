@@ -3,38 +3,22 @@ CREATE DATABASE gestion_tareas;
 USE gestion_tareas;
 
 create table usuarios(
-	id_usuario int auto_increment primary key,
+	email varchar(100) unique not null primary key,
     usuario varchar(100) unique not null,
-    telefono varchar(9) unique not null,
-    email varchar(100) unique not null,
     contrasena varchar(100) not null
 );
 
 create table tareas(
 	id_tarea int auto_increment primary key,
-    id_usuario int,
+    email varchar(100),
     nombre_tarea varchar(100) NOT NULL,
     descripcion_tarea varchar(200) NOT NULL,
     estado_tarea enum("En proceso", "Completada") NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+    FOREIGN KEY (email) REFERENCES usuarios(email)
 );
 
-insert into usuarios(usuario, telefono, email, contrasena) VALUES
-("juan", 123456, "juan@ejemplo.com", "12lola");
-
-insert into tareas(id_usuario, nombre_tarea, descripcion_tarea, estado_tarea) VALUES
-(1, "hacer colada", "secar la ropa", "Completada");
 
 
-insert into usuarios(usuario, telefono, email, contrasena) VALUES
-("ma", 562, "juaan@ejemplo.com", "12lolaa"),
-("maa", 5462, "jauaan@ejemplo.com", "12loala");
-
-
-insert into tareas(id_usuario, nombre_tarea, descripcion_tarea, estado_tarea) 
-select id_usuario, 'hacera la colsadaada', 'secaara la ropa', 'Completada'
-from usuarios
-WHERE id_usuario = 2;
 
 
 

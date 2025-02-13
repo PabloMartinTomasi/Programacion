@@ -27,7 +27,7 @@ class TareasController{
     }
 
     public function elimnar_tarea($id_tarea){//Nos sirve para poder eliminar una tarea poniendo, el id de dicha tarea
-        $this->modelo->elimnar_tarea($id_tarea);
+        $this->modelo->eliminar_tarea($id_tarea);
     }
 
     public function actualizar_tarea($id_tarea, $estado_tarea){//Nos sirve para actulizar el estado de una tarea
