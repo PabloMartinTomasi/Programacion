@@ -1,5 +1,5 @@
 <?php
-require_once '../modelo/class_usuario.php';
+require_once '../modelo/class_usuario.php';//Decimos que es necesario el class usuario
 
 class IniciarSesionController {
     private $modelo;
@@ -8,7 +8,7 @@ class IniciarSesionController {
         $this->modelo = new IniciarSesion();
     }
 
-    public function iniciar_sesion($email, $contrasena) {
+    public function iniciar_sesion($email, $contrasena) {//Nos sirve para poder iniciar sesion en la cuenta de un usuario
         if (empty($email) || empty($contrasena)) {
             return 'Por favor, complete todos los campos.';
         }
@@ -22,7 +22,7 @@ class IniciarSesionController {
         }
     }
 
-    public function registrar_usuario($email, $nombre, $contrasena){
+    public function registrar_usuario($email, $nombre, $contrasena){//Nos sirve para que un usuario se pueda registra
         if (empty($email) || empty($nombre) || empty($contrasena)) {
             return 'Por favor, complete todos los campos.';
         }

@@ -1,25 +1,28 @@
 <?php
 require_once '../config/conexion.php'; //Ponemos esto para poder estra conectados a la BBDD, y no tener que estar escribiendolo siempre
 
-class Tareas{
+class Tareas
+{
     private $conexion;
 
     public function __construct(){
         $this->conexion = new Conexion();
     }
 
-    public function crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea, $email) {
+    public function crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea, $email){//Nos sirve para poder insertar una nueva tarea, al usuario de la seeión iniciada
         $query_tarea = "INSERT INTO tareas (nombre_tarea, descripcion_tarea, estado_tarea, email) 
-                        VALUES (?, ?, ?, ?)"; // Se elimina el WHERE y se usa ? para email
-        
+                        SELECT ?, ?, ?, email
+                        FROM usuarios
+                        WHERE email = ?";//Es la sentencia para poder insertar la nueva tarea
+
         $stmt = $this->conexion->conexion->prepare($query_tarea);
-    
+
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta: " . $this->conexion->conexion->error);
         }
-    
-        $stmt->bind_param("ssss", $nombre_tarea, $descripcion_tarea, $estado_tarea, $email); // Corregido: 4 parámetros
-    
+
+        $stmt->bind_param("ssss", $nombre_tarea, $descripcion_tarea, $estado_tarea, $email);
+
         if ($stmt->execute()) {
             $stmt->close();
             return "Tarea creada con éxito";
@@ -27,32 +30,35 @@ class Tareas{
             $stmt->close();
             throw new Exception("Error al crear la tarea: " . $stmt->error);
         }
+        $stmt->close();//Nos sirve para poder cerrar la sentencia
+        $this->conexion->conexion->close();
     }
-    
 
-    public function obtener_tareas($email){//Function para poder obervar las tareas de un usuario con solo saber su id del usuario
-        $query = "SELECT * FROM tareas WHERE email = ?";
+
+    public function obtener_tareas($email){//Nos sirve para poder ver las tareas de un usuario en concreto, cuando ese usuario iniciar sesión
+        $query = "SELECT * FROM tareas WHERE email = ?";//Es la sentencia para poder ver las tareas de un usuario e concreto
         $stmt = $this->conexion->conexion->prepare($query);
 
-        if ($stmt === false){
-            die("Error en la preparación de la consulta: " . $this->conexion->conexion->error);
+        if (!$stmt) {
+            throw new Exception("Error en la preparación de la consulta: " . $this->conexion->conexion->error);
         }
+
         $stmt->bind_param("s", $email);
         $stmt->execute();
 
-        $resulatado = $stmt->get_result();
-        $tareas=[];
+        $resultado = $stmt->get_result();
+        $tareas = [];
 
-        while ($fila = $resulatado->fetch_assoc()){
-            $tareas[]=$fila;
+        while ($fila = $resultado->fetch_assoc()) {
+            $tareas[] = $fila;
         }
 
         $stmt->close();
-        return $resulatado->fetch_assoc();
+        return is_array($tareas) ? $tareas : [];//Nos va a mostrar las tareas del usuario
     }
 
-    public function elimnar_tarea($id_tarea){
-        $query = "DELETE FROM tareas WHERE id_tarea = ?";
+    public function elimnar_tarea($id_tarea){//Nos sirve para poder eliminar una tarea cuando esta acabada
+        $query = "DELETE FROM tareas WHERE id_tarea = ?";//Sentencia para poder eliminar la tarea con solo poner el id de la tarea
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("i", $id_tarea);
 
@@ -62,6 +68,20 @@ class Tareas{
             return "Error al eliminar la tarea";
         }
     }
-}
 
-?>
+    public function actualizar_tarea($id_tarea, $estado_tarea){//Esto nos va a servir en el js, para poder actulizar el estado de la tara. desde el archivo de lista_tareas.php 
+        $query = "UPDATE tareas SET estado_tarea = ? WHERE id_tarea = ?";//Es la sentencia para poder actulizar el estado de la tarea
+        $stmt = $this->conexion->conexion->prepare($query);
+        
+        if (!$stmt) {
+            throw new Exception("Error en la preparación de la consulta: " . $this->conexion->conexion->error);
+        }
+    
+        $stmt->bind_param("si", $estado_tarea, $id_tarea);
+
+        $resultado = $stmt->execute();
+        $stmt->close();
+
+        return $resultado;
+    }    
+}

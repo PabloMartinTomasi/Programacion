@@ -1,16 +1,15 @@
 <?php
 require_once '../controlador/usuario_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){//Usamos el metodo post para poder crear la cuenta a el usuario
     $email = $_POST['email'];
     $nombre = $_POST['nombre'];
     $contrasena = $_POST['contrasena'];
     $controlador = new IniciarSesionController();
     $resultado = $controlador-> registrar_usuario($email, $nombre, $contrasena);
-    header('Location: ../vista/login.php');
+    header('Location: ../vista/login.php');//Le decimos que nos mande al login cuando un usuario se haya registrado con exito
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -32,23 +31,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 <body>
     <div class="container mt-4">
         <h1>Crear cuenta</h1>
-        <form action="../vista/registrar_nuevo_usuario.php" method="post">
+        <form action="alta_usuario.php" method="post">
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label">Email:</label><!-- El usuario tendra que introducir su email que sera su nombre de usuario -->
                 <input type="email" class="form-control" id="email" name="email" required><br>
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
+                <label for="nombre" class="form-label">Nombre:</label><!-- Solicitamos al usuario que ponga su nombre -->
                 <input type="text" class="form-control" id="nombre" name="nombre" required><br>
             </div>
             <div class="mb-3">
-                <label for="contrasena" class="form-label">contrasena:</label>
+                <label for="contrasena" class="form-label">Contraseña:</label><!-- El usuario va a tener que introducir su contraseña -->
                 <input type="password" class="form-control" id="contrasena" name="contrasena" required><br>
             </div>
             <div class="mb-3">
-                <input type="submit" value="Crear cuenta" class="btn btn-primary">
+                <label><input type="checkbox" id="terminos" name="terminos" value="terminos">Aceptar normas y condiciones</label><!-- El usuario tendra que hacer clic en acpetar las normas y condiciones para poder registrarse -->
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Crear cuenta" class="btn btn-primary" id="btn-registrar" disabled><!-- Sirve para que el cliente pueda registrarse -->
             </div>
         </form>
     </div>
+
+    <script src="../script/script.js"></script><!-- Es el js, para que si el cliente no haga clic en las normas y condiciones, no se pueda registrar -->
 </body>
 </html>

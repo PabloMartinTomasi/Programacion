@@ -1,8 +1,8 @@
 <?php
-session_start();
+session_start();//Nos sirve para poder iniciar sesión
 require_once '../controlador/usuario_controller.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {//Metodo post para poder iniciar sesion
     $email = $_POST['email'];
     $contrasena = $_POST['contrasena'];
 
@@ -14,14 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<div class='p-3 mb-2 bg-danger'>La contraseña o el email estan incorectos</div>";
     } else {
         $_SESSION['email'] = $resultado['email'];
-        header("Location: lista_tareas.php");
+        $_SESSION['user'] = $resultado['nombre'];
+        header("Location: lista_tareas.php");//Cuando se haya iniciado sesión nos madara al listado de las tareas
         exit();
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,18 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Iniciar sesión</h1>
         <form action="login.php" method="post">
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label">Email:</label><!-- El usuario tendra que poner su email para iniciar sesion -->
                 <input type="email" class="form-control" id="email" name="email" required><br>
             </div>
             <div class="mb-3">
-                <label for="contrasena" class="form-label">Contraseña:</label>
+                <label for="contrasena" class="form-label">Contraseña:</label><!-- El usuario tendra que poner su contraseña para poder iniciar sesión -->
                 <input type="password" class="form-control" id="contrasena" name="contrasena" required><br>
             </div>
             <div class="mb-3">
-                <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
+                <input type="submit" value="Iniciar Sesión" class="btn btn-primary"><!-- Boton para poder iniciar sesion -->
             </div>
             <div class="mb-3">
-                <a href="registrar_nuevo_usuario.php" class="btn btn-primary active mb-3" role="button">Registrarse</a>
+                <a href="alta_usuario.php" class="btn btn-primary active mb-3" role="button">Registrarse</a><!-- Boton para poder registrarse -->
             </div>
         </form>
     </div>

@@ -1,8 +1,12 @@
 <?php
 require_once '../controlador/tareas_controller.php'; //Nos sirve para tener que evitar de volver a escribir lo mismo
-session_start();
+session_start();//Nos sirve para mantener la sesión iniciada
+if (!isset($_SESSION['email'])) {
+    throw new Exception("Error: No hay un usuario autenticado.");
+}
+$email = $_SESSION['email'];//Nos sirve para no tener que introducir el email del usuario a la hora de crear una nueva tarea
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){//Usamos el metodo post, para poder eliminar la tarea de un usuario
     $id_tarea = $_POST['id_tarea'];
     $controlador = new TareasController();
     $resultado = $controlador->elimnar_tarea($id_tarea);
@@ -31,13 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <h1>Eliminar tarea</h1>
         <form action="eliminar_tarea.php" method="post">
             <div class="mb-3">
-                <label for="id_tarea" class="form-label">ID la tarea:</label>
+                <label for="id_tarea" class="form-label">ID la tarea:</label><!-- Solicitamos al usuario que ponga el id de la tarea que desea eliminar -->
                 <input type="number" class="form-control" id="id_tarea" name="id_tarea" required><br>
             </div>
             <div class="mb-3">
-                <input type="submit" value="Eliminar tarea" class="btn btn-danger">
+                <input type="submit" value="Eliminar tarea" class="btn btn-danger"><!-- Eliminamos la tarea -->
             </div>
         </form>
     </div>
 </body>
 </html>
+

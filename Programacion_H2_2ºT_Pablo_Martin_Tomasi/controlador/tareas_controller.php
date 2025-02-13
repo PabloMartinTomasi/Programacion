@@ -12,7 +12,7 @@ class TareasController{
         $this->modelo->crear_tarea($nombre_tarea, $descripcion_tarea, $estado_tarea, $email);
     }
 
-    public function obtener_tareas($email) {
+    public function obtener_tareas($email){//Nos sivre para poder ver las tareas de un usuario en concreto
         if (empty($email)) {
             return 'Por favor, complete todos los campos.';
         }
@@ -26,8 +26,12 @@ class TareasController{
         }
     }
 
-    public function elimnar_tarea($id_tarea){
+    public function elimnar_tarea($id_tarea){//Nos sirve para poder eliminar una tarea poniendo, el id de dicha tarea
         $this->modelo->elimnar_tarea($id_tarea);
+    }
+
+    public function actualizar_tarea($id_tarea, $estado_tarea){//Nos sirve para actulizar el estado de una tarea
+        $this->modelo->actualizar_tarea($id_tarea, $estado_tarea);
     }
 }
 ?>
