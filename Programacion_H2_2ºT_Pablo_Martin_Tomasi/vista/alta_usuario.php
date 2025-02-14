@@ -10,11 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {//Usamos el metodo post para poder c
     $resultado = $controlador->registrar_usuario($email, $nombre, $contrasena);
     
     // Verifica el resultado y establece el mensaje de error
-    if ($resultado == 'Error al registrar el usuario') {
+    if ($resultado === "Error: El correo ya está registrado.") {
         $error = "<div class='alert alert-danger'>Este correo electrónico ya está registrado. Intenta con otro.</div>";
     } else {
-        header('Location: ../vista/login.php');// Redirige al login si el registro es exitoso
-        exit();
+        $error = "<div class='alert alert-danger'>Error inesperado. Intente nuevamente.</div>";
     }
 }
 ?>
@@ -43,9 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {//Usamos el metodo post para poder c
             </div>
             <div class="col col-md-4 col-sm-3 col-xs-12">
                 <h1>Crear cuenta</h1>
-                <?php if (!empty($error)): ?>
-                    <?php echo $error; ?>
-                <?php endif; ?>
+                <?= $error ?>
                 <div class="card border-primary mb-3" style="width: 18rem;">
                     <div class="card-body">
                         <form action="alta_usuario.php" method="post">

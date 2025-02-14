@@ -36,18 +36,32 @@ class IniciarSesion {
         $this->conexion->conexion->close();
     }
 
-    public function registrar_usuario($email, $nombre, $contrasena){//Nos sirve para poder registrar a un nuevo usuario
-        $encriptar_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);//Nos sirve para poder encriptar la contraseña, y así poder iniciar sesion en un futuro
-
-        $query = "INSERT INTO usuarios (email, nombre, contrasena) VALUES (?, ?, ?)";//Sentencia para poder insertar al usuario que se este registrando
+    public function registrar_usuario($email, $nombre, $contrasena) {//funcion para poder registrar a un nuevo usuario
+        // Verificar si el email ya está registrado
+        $query_email = "SELECT email FROM usuarios WHERE email = ?";//Sentencia para poder verificar si el email ya esta registrado o no
+        $stmt_email = $this->conexion->conexion->prepare($query_email);
+        $stmt_email->bind_param("s", $email);
+        $stmt_email->execute();
+        $stmt_email->store_result();
+    
+        if ($stmt_email->num_rows > 0) {
+            return "Error: El correo ya está registrado.";
+        }
+    
+        $stmt_email->close(); // Cerrar la consulta previa
+    
+        $encriptar_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);// Encriptar la contraseña
+    
+        $query = "INSERT INTO usuarios (email, nombre, contrasena) VALUES (?, ?, ?)";//Si el email, no esta registrado se inserta el cliente
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("sss", $email, $nombre, $encriptar_contrasena);
-
+    
         if ($stmt->execute()) {
             return "Usuario registrado con éxito";
         } else {
-            return "Error al registrar el usuario";
+            return "Error al registrar el usuario.";
         }
     }
+    
 }
 ?>

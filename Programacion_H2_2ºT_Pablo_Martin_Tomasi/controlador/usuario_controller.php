@@ -26,6 +26,11 @@ class IniciarSesionController {
         if (empty($email) || empty($nombre) || empty($contrasena)) {
             return 'Por favor, complete todos los campos.';
         }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {//Nos sirve para confirmarnos, de que el email que pone un usuario esta o no registrado
+            return 'Formato de email inválido.';
+        }
+
         $resultado = $this->modelo->registrar_usuario($email, $nombre, $contrasena);
         return $resultado;
     }
