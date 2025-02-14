@@ -4,6 +4,7 @@ USE gestion_tareas;
 
 create table usuarios(
     email varchar(100) unique not null primary key,
+    nombre varchar(100) not null,
     contrasena varchar(100) not null
 );
 
