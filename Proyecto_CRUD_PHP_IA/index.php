@@ -1,14 +1,21 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $pregunta = trim($_POST['pregunta']) . "dame respuestas erroneas";
+    $pregunta = trim($_POST['pregunta']);
 
     if (!empty($pregunta)) {
-        $puerto = "8000";
-        $url = "http://localhost:$puerto/v1/completions";
+        $puerto = "1234";
+        $url = "http://localhost:$puerto/v1/chat/completions";
 
         $datos = array(
-            'prompt' => $pregunta,
-            'max_tokens' => 1000
+            "model" => "llama-3.2-1b-instruct",
+            "messages" =>
+            array(
+                array("role" => "system", "content" => "Responde siempre en español, siempre menciona cuántas personas puede servir la receta al principio de la respuesta."),
+                array("role" => "user", "content" => $pregunta)
+            ),
+            "temperature" => 0.7,
+            "max_tokens" => -1,
+            "stream" => false
         );
 
         $jsonDatos = json_encode($datos);
@@ -21,6 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'Content-Type: application/json',
             'Content-Length: ' . strlen($jsonDatos)
         ));
+        $respuesta = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            $respuesta_desencriptada = '<p style="color: red;">Error en cURL: ' . curl_error($ch) . '</p>';
+        } else {
+            $datos_respuesta = json_decode($respuesta, true);
+
+            if (isset($datos_respuesta['choices'][0]['message']['content'])) {
+                $respuesta_desencriptada = nl2br(htmlspecialchars($datos_respuesta['choices'][0]['message']['content']));
+            } else {
+                $respuesta_desencriptada = '<p style="color: red;">No se recibió una respuesta válida.</p>';
+            }
+        }
+
+        curl_close($ch);
     }
 }
 ?>
@@ -46,15 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="../index.php">Pregunta</a>
+                    <a class="nav-link" href="index.php">Pregunta</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../vista/alta_receta.php">Añadir receta</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="vista/lista_recetas.php">Recetas registradas</a>
                 </li>
             </ul>
         </div>
     </nav>
-
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4">
@@ -66,16 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="mb-3">
                         <input type="submit" value="Lanzar pregunta" class="btn btn-primary">
                     </div>
+                    
+                    <form action="vista/crear_receta.php" method="post">
+                        <?php if (!empty($respuesta_desencriptada)): ?>
+                            <div class="alert alert-info mt-3"><?php echo "Titulo: {$pregunta}<br>{$respuesta_desencriptada}"; ?></div>
+                            <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($pregunta); ?>">
+                            <input type="hidden" name="descripcion" value="<?php echo htmlspecialchars($respuesta_desencriptada); ?>">
+                            <a href="vista/crear_receta.php?titulo=<?php echo urldecode($pregunta);?> &respuesta=<?php echo urldecode($respuesta_desencriptada); ?>" class="btn" >Guardar receta</a>
+                        <?php endif; ?>
+                    </form>
                 </form>
-                <?php
-                $respuesta = curl_exec($ch);
-                if (curl_errno($ch)) {
-                    echo '<p style="color: red;">Error en cURL: ' . curl_error($ch) . '</p>';
-                } else {
-                    echo "<div class='alert alert-info mt-3'><strong>Respuesta:</strong> " . $respuesta . "</div>";
-                }
-                curl_close($ch);
-                ?>
             </div>
         </div>
     </div>

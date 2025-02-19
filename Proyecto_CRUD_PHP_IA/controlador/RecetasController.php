@@ -1,5 +1,5 @@
 <?php
-require_once '../modelo/class_socio.php';
+require_once '../modelo/class_recetas.php';
 
 class RecetasController {
     private $modelo;
@@ -8,8 +8,8 @@ class RecetasController {
         $this->modelo = new Recetas();
     }
 
-    public function CrearRecetas($nombre_receta, $ingredientes, $descripcion, $tiempo){
-        $this->modelo->CrearRecetas($nombre_receta, $ingredientes, $descripcion, $tiempo);
+    public function CrearReceta($titulo, $descripcion){
+        $this->modelo->CrearReceta($titulo, $descripcion);
     }
     
     public function obtenerRecetas(){

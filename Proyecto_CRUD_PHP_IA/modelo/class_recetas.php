@@ -1,35 +1,40 @@
 <?php
 require_once '../config/conexion.php';
 
-class Recetas{
+class Recetas {
     private $conexion;
 
     public function __construct() {
         $this->conexion = new Conexion();
     }
 
-    public function CrearRecetas($nombre_receta, $ingredientes, $descripcion, $tiempo){
-        $query = "INSERT INTO receta(nombre_receta, ingredientes, descripcion, tiempo) VALUE (?, ?, ?, ?)";
+    public function CrearReceta($titulo, $descripcion) {
+        $query = "INSERT INTO receta(titulo, descripcion) VALUES (?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
-        $stmt->bind_param("ssss", $nombre_receta, $ingredientes, $descripcion, $tiempo);
+        $stmt->bind_param("ss", $titulo, $descripcion);
 
         if ($stmt->execute()) {
-            echo "Receta agregada con éxito.";
+            return true;
         } else {
             echo "Error al agregar la receta: " . $stmt->error;
+            return false;
         }
 
         $stmt->close();
     }
     
-    public function obtenerRecetas(){
-        $query = "SELECT * FROM receta";
-        $resultado = $this->conexion->conexion->query($query);
-        $recetas = [];
-        while ($fila = $resultado->fetch_assoc()) {
-            $recetas[] = $fila;
+    public function obtenerRecetas() {
+        try {
+            $query = "SELECT * FROM receta";
+            $resultado = $this->conexion->conexion->query($query);
+            $recetas = [];
+            while ($fila = $resultado->fetch_assoc()) {
+                $recetas[] = $fila;
+            }
+            return $recetas;
+        } catch (Exception $e) {
+            echo "Error al obtener las recetas: " . $e->getMessage();
         }
-        return $recetas;
     }
 }
 ?>
