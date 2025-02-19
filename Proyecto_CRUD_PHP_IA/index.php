@@ -87,16 +87,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="mb-3">
                         <input type="submit" value="Lanzar pregunta" class="btn btn-primary">
                     </div>
-                    
-                    <form action="vista/crear_receta.php" method="post">
-                        <?php if (!empty($respuesta_desencriptada)): ?>
-                            <div class="alert alert-info mt-3"><?php echo "Titulo: {$pregunta}<br>{$respuesta_desencriptada}"; ?></div>
-                            <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($pregunta); ?>">
-                            <input type="hidden" name="descripcion" value="<?php echo htmlspecialchars($respuesta_desencriptada); ?>">
-                            <a href="vista/crear_receta.php?titulo=<?php echo urldecode($pregunta);?> &respuesta=<?php echo urldecode($respuesta_desencriptada); ?>" class="btn" >Guardar receta</a>
-                        <?php endif; ?>
-                    </form>
                 </form>
+
+                <?php if (!empty($respuesta_desencriptada)): ?>
+                    <div class="alert alert-info mt-3">
+                        <strong>Título:</strong> <?php echo htmlspecialchars($pregunta); ?><br>
+                        <?php echo $respuesta_desencriptada; ?>
+                    </div>
+
+                    <form action="vista/crear_receta.php" method="post">
+                        <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($pregunta); ?>">
+                        <input type="hidden" name="descripcion" value="<?php echo htmlspecialchars($respuesta_desencriptada); ?>">
+                        <button type="submit" class="btn btn-success">Guardar receta</button>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>

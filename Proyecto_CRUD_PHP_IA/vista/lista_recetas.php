@@ -37,25 +37,20 @@ $recetas = $controller->obtenerRecetas();
 
     <div class="container">
         <div class="row">
-            <div class="col col-md-2 col-sm-3 col-xs-12">
-            </div>
-            <div class="col col-md-6 col-sm-3 col-xs-12">
-                <div class="card" style="width: 18rem;">
-                    <?php foreach ($recetas as $receta): ?>
+            <?php foreach ($recetas as $receta): ?>
+                <div class="col-md-4 mb-3">
+                    <div class="card" style="width: 100%;">
                         <div class="card-body">
-                            <h5 class="card-title">Titulo: <?= $receta['titulo'] ?></h5>
-                            <p class="card-text"><?= $receta['descripcion'] ?></p>
+                            <h5 class="card-title">Título: <?= htmlspecialchars($receta['titulo']) ?></h5>
+                            <p class="card-text"><?= nl2br(htmlspecialchars($receta['descripcion'])) ?></p>
+                            <button type="button" class="btn btn-danger">Danger</button>
+                            <button type="button" class="btn btn-warning">Warning</button>
                         </div>
-                    <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="col col-md-2 col-sm-3 col-xs-12">
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
-
-
 
 </body>
 

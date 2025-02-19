@@ -9,14 +9,13 @@ class Recetas {
     }
 
     public function CrearReceta($titulo, $descripcion) {
-        $query = "INSERT INTO receta(titulo, descripcion) VALUES (?, ?)";
+        $query = "INSERT INTO receta (titulo, descripcion) VALUES (?, ?)";
         $stmt = $this->conexion->conexion->prepare($query);
         $stmt->bind_param("ss", $titulo, $descripcion);
 
         if ($stmt->execute()) {
             return true;
         } else {
-            echo "Error al agregar la receta: " . $stmt->error;
             return false;
         }
 
@@ -34,6 +33,7 @@ class Recetas {
             return $recetas;
         } catch (Exception $e) {
             echo "Error al obtener las recetas: " . $e->getMessage();
+            return [];
         }
     }
 }
