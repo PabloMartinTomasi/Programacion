@@ -1,20 +1,20 @@
 <?php
 require_once '../controlador/RecetasController.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['titulo']) && isset($_POST['descripcion']) && isset($_POST['id_receta'])) {
-    $titulo = $_POST['titulo'];
-    $descripcion = $_POST['descripcion'];
+$controller = new RecetasController();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['titulo']) && !empty($_POST['descripcion']) && isset($_POST['id_receta'])){
+    $titulo = trim($_POST['titulo']);
+    $descripcion = trim($_POST['descripcion']);
     $id_receta = $_POST['id_receta'];
 
-    $controller = new RecetasController();
     $resultado = $controller->editarReceta($titulo, $descripcion, $id_receta);
 
     header("Location: lista_recetas.php");
     exit();
 }
 
-$controllerr = new RecetasController();
-$recetas = $controllerr->obtenerRecetas();
+$recetas = $controller->obtenerRecetas();
 ?>
 
 <!DOCTYPE html>
@@ -30,31 +30,32 @@ $recetas = $controllerr->obtenerRecetas();
 
 <body>
     <div class="container">
+        <h1 class="mb-4">Editar receta</h1>
+        
         <div class="row">
-            <h1>Editar receta</h1>
-            <div class="col-md-6 mb-3">
-                <?php foreach ($recetas as $receta): ?>
+            <?php foreach ($recetas as $receta): ?>
+                <div class="col-md-6 mb-3">
                     <form action="editar_receta.php" method="post">
-                        <div class="card" style="width: 100%;">
+                        <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="id_receta" class="form-label">ID de la receta:</label>
-                                    <input type="number" class="form-control" name="id_receta" value="<?= ($receta['id_receta']) ?>">
+                                    <label for="id_receta_<?= $receta['id_receta'] ?>" class="form-label">ID de la receta:</label>
+                                    <input type="number" class="form-control" id="id_receta_<?= $receta['id_receta'] ?>" name="id_receta" value="<?= $receta['id_receta'] ?>" readonly>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="titulo" class="form-label">Titulo de la receta:</label>
-                                    <input type="text" class="form-control" name="titulo" value="<?= htmlspecialchars($receta['titulo']) ?>">
+                                    <label for="titulo_<?= $receta['id_receta'] ?>" class="form-label">Título de la receta:</label>
+                                    <input type="text" class="form-control" id="titulo_<?= $receta['id_receta'] ?>" name="titulo" value="<?= htmlspecialchars($receta['titulo']) ?>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="descripcion" class="form-label">Descripcion de la receta:</label>
-                                    <input type="text" class="form-control" name="descripcion" value="<?= nl2br(htmlspecialchars($receta['descripcion'])) ?>">
+                                    <label for="descripcion_<?= $receta['id_receta'] ?>" class="form-label">Descripción de la receta:</label>
+                                    <textarea class="form-control" id="descripcion_<?= $receta['id_receta'] ?>" name="descripcion" rows="4"><?= htmlspecialchars($receta['descripcion']) ?></textarea>
                                 </div>
+                                <button type="submit" class="btn btn-success mt-2">Editar receta</button>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success">Editar receta</button>
                     </form>
-                <?php endforeach; ?>
-            </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </body>

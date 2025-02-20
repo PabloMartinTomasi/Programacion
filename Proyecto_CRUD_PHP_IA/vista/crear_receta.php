@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['titulo']) && isset($_
     $controller = new RecetasController();
     $resultado = $controller->CrearReceta($titulo, $descripcion);
 
-    header("Location: ../index.php");
+    header("Location: chat_ia.php");
     exit();
 }
 ?>

@@ -22,13 +22,14 @@ $recetas = $controller->obtenerRecetas();
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="../index.php">Pregunta</a>
+                    <a class="nav-link" href="chat_ia.php">Pregunta</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="../vista/lista_recetas.php">Recetas registradas</a>
+                    <a class="nav-link" href="lista_recetas.php">Recetas registradas</a>
                 </li>
             </ul>
         </div>
@@ -54,5 +55,4 @@ $recetas = $controller->obtenerRecetas();
     </div>
 
 </body>
-
 </html>
