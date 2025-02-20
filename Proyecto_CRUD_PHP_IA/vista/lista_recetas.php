@@ -38,13 +38,14 @@ $recetas = $controller->obtenerRecetas();
     <div class="container">
         <div class="row">
             <?php foreach ($recetas as $receta): ?>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="card" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title">Título: <?= htmlspecialchars($receta['titulo']) ?></h5>
                             <p class="card-text"><?= nl2br(htmlspecialchars($receta['descripcion'])) ?></p>
-                            <button type="button" class="btn btn-danger">Danger</button>
-                            <button type="button" class="btn btn-warning">Warning</button>
+                            <p class="card-text"><b>ID de la receta: </b><?= ($receta['id_receta']) ?></p>
+                            <a href="eliminar_receta.php" type="button" class="btn btn-danger">Eliminar</a>
+                            <a href="editar_receta.php" type="button" class="btn btn-success">Editar</a>
                         </div>
                     </div>
                 </div>

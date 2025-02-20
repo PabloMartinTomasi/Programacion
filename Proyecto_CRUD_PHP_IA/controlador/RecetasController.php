@@ -15,5 +15,13 @@ class RecetasController {
     public function obtenerRecetas(){
         return $this->modelo->obtenerRecetas();
     }
+
+    public function editarReceta($titulo, $descripcion, $id_receta){
+        $this->modelo->editarReceta($titulo, $descripcion, $id_receta);
+    }
+
+    public function eliminarReceta($id_receta){
+        $this->modelo->eliminarReceta($id_receta);
+    }
 }
 ?>

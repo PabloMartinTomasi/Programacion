@@ -36,5 +36,33 @@ class Recetas {
             return [];
         }
     }
+
+    public function editarReceta($titulo, $descripcion, $id_receta){
+        $query = "UPDATE receta SET titulo = ?, descripcion = ? WHERE id_receta = ?";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("ssi", $titulo, $descripcion, $id_receta);
+
+        if ($stmt->execute()) {
+            echo "Socio actualizado con éxito.";
+        } else {
+            echo "Error al actualizar socio: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
+
+    public function eliminarReceta($id_receta){
+        $query = "DELETE FROM receta WHERE id_receta = ?";
+        $stmt = $this->conexion->conexion->prepare($query);
+        $stmt->bind_param("i", $id_receta);
+
+        if ($stmt->execute()) {
+            echo "Socio eliminado con éxito.";
+        } else {
+            echo "Error al eliminar socio: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
 }
 ?>

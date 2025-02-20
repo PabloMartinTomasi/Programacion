@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "model" => "llama-3.2-1b-instruct",
             "messages" =>
             array(
-                array("role" => "system", "content" => "Responde siempre en español, siempre menciona cuántas personas puede servir la receta al principio de la respuesta."),
+                array("role" => "system", "content" => "Responde siempre en español, siempre menciona cuántas personas puede servir la receta al final de la respuesta."),
                 array("role" => "user", "content" => $pregunta)
             ),
             "temperature" => 0.7,
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $datos_respuesta = json_decode($respuesta, true);
 
             if (isset($datos_respuesta['choices'][0]['message']['content'])) {
-                $respuesta_desencriptada = nl2br(htmlspecialchars($datos_respuesta['choices'][0]['message']['content']));
+                $respuesta_desencriptada = htmlspecialchars($datos_respuesta['choices'][0]['message']['content']);
             } else {
                 $respuesta_desencriptada = '<p style="color: red;">No se recibió una respuesta válida.</p>';
             }
@@ -92,12 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php if (!empty($respuesta_desencriptada)): ?>
                     <div class="alert alert-info mt-3">
                         <strong>Título:</strong> <?php echo htmlspecialchars($pregunta); ?><br>
-                        <?php echo $respuesta_desencriptada; ?>
+                        <?php echo nl2br($respuesta_desencriptada); ?>
                     </div>
 
                     <form action="vista/crear_receta.php" method="post">
                         <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($pregunta); ?>">
-                        <input type="hidden" name="descripcion" value="<?php echo htmlspecialchars($respuesta_desencriptada); ?>">
+                        <input type="hidden" name="descripcion" value="<?php echo str_replace('<br />', "\n", $respuesta_desencriptada); ?>">
                         <button type="submit" class="btn btn-success">Guardar receta</button>
                     </form>
                 <?php endif; ?>
@@ -105,5 +105,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
-
 </html>
