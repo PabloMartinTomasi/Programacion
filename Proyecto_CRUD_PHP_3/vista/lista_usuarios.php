@@ -1,7 +1,7 @@
 <?php
-require_once '../controlador/InicioSesionController.php';
+require_once '../controlador/UsuariosController.php';
 session_start();
-$controller = new InicioSesionController();
+$controller = new UsuarioController();
 $usuarios = $controller->listarUsuarios();
 ?>
 
@@ -22,7 +22,7 @@ $usuarios = $controller->listarUsuarios();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="css/estilo.css" rel="stylesheet">
-    <title>Listado de Usuarios</title>
+    <title>Listado de Socios</title>
 </head>
 
 <body>
@@ -51,19 +51,21 @@ $usuarios = $controller->listarUsuarios();
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="lista_eventos.php">Lista de los eventos</a>
                             <a class="dropdown-item" href="alta_evento.php">Añadir un evento</a>
-                            <a class="dropdown-item" href="editar_evento.php">Editar un evento</a>
+                            <a class="dropdown-item" href="editar_evento.php">Eliminar un evento</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
-                            Usuarios
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lista_usuarios.php">Lista de los usuarios</a>
-                            <a class="dropdown-item" href="alta_usuario.php">Añadir un usuario</a>
-                            <a class="dropdown-item" href="editar_usuario.php">Editar un usuario</a>
-                        </div>
-                    </li>
+                    <?php if (isset($_SESSION['Admin'])): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
+                                Usuarios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="lista_usuarios.php">Lista de los usuarios</a>
+                                <a class="dropdown-item" href="alta_usuario.php">Añadir un usuario</a>
+                                <a class="dropdown-item" href="editar_usuarios.php">Editar un usuario</a>
+                            </div>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
             </div>
@@ -81,19 +83,17 @@ $usuarios = $controller->listarUsuarios();
             </tr>
         </thead>
         <tbody>
-            <?php if (is_array($usuarios) && !empty($usuarios)): ?>
-                <?php foreach ($usuarios as $usuario): ?>
-                    <tr>
-                        <td><?= $usuario['id_usuario'] ?></td>
-                        <td><?= $usuario['usuario'] ?></td>
-                        <td><?= $usuario['password'] ?></td>
-                        <td><?= $usuario['rol'] ?></td>
-                        <td>
-                            <a href="eliminar_usuario.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php foreach ($usuarios as $usuario): ?>
+                <tr>
+                    <td><?= $usuario['id_usuario'] ?></td>
+                    <td><?= $usuario['usuario'] ?></td>
+                    <td><?= $usuario['contrasena'] ?></td>
+                    <td><?= $usuario['rol'] ?></td>
+                    <td>
+                        <a href="eliminar_usuarios.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-danger active mb-3" role="button">Eliminar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </body>

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $controlador = new SociosController();
     $resultado = $controlador->actualizarSocio($id_socio, $nombre, $apellido, $email, $telefono, $fecha_nacimiento);
-    header('Location: ../vista/lista_socios.php');
+    header('Location: ../index.php');
     exit();
 }
 ?>

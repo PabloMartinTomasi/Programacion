@@ -55,19 +55,21 @@ $socios = $controller->listarSocios();
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="lista_eventos.php">Lista de los eventos</a>
                             <a class="dropdown-item" href="alta_evento.php">Añadir un evento</a>
-                            <a class="dropdown-item" href="editar_evento.php">Editar un evento</a>
+                            <a class="dropdown-item" href="editar_evento.php">Eliminar un evento</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
-                            Usuarios
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="lista_usuarios.php">Lista de los usuarios</a>
-                            <a class="dropdown-item" href="alta_usuario.php">Añadir un usuario</a>
-                            <a class="dropdown-item" href="">Editar un usuario</a>
-                        </div>
-                    </li>
+                    <?php if (isset($_SESSION['Admin'])): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="?opcion=clientes">
+                                Usuarios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="lista_usuarios.php">Lista de los usuarios</a>
+                                <a class="dropdown-item" href="alta_usuario.php">Añadir un usuario</a>
+                                <a class="dropdown-item" href="editar_usuarios.php">Editar un usuario</a>
+                            </div>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <a href="logout.php" class="btn btn-danger active mb-3" role="button">Cerrar sesión</a>
             </div>

@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lugar = $_POST['lugar'];
     $controlador = new EventosController();
     $resultado = $controlador->actualizarEvento($id_evento, $nombre_evento, $fecha, $lugar);
-    header('Location: ../vista/lista_eventos.php');
+    header('Location: ../index.php');
     exit();
 }
 ?>
