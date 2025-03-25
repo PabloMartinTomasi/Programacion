@@ -2,10 +2,14 @@ package ej41;
 
 public class Principal {
 	public static void main(String[] args) {
-		Persona persona = new Persona("Juan", 15);
-		persona.mostrarDatos();
-		
 		Persona estudiante = new Estudiante("Luis", 17, "Segundo de Bachillerato");
-		estudiante.mostrarDatos();
+		Persona profesor = new Profesor("Juan", 42, "Matematicas");
+		
+		mostrarDatosPersona(estudiante);
+		mostrarDatosPersona(profesor);
 	}
+	
+	public static void mostrarDatosPersona(Persona persona) {
+        persona.mostrarDatos();
+    }
 }
