@@ -6,6 +6,7 @@ public class Estudiante extends Persona{
 	public Estudiante(String nombre, int edad, String curso) {
 		super(nombre, edad);
 		this.curso = curso;
+		System.out.println("Super en el constructor");
 	}
 	
 	@Override
