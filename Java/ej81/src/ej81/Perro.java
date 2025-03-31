@@ -1,0 +1,11 @@
+package ej81;
+
+public class Perro extends Animal implements Comunicable{
+	public Perro (String nombre) {
+		super(nombre);
+	}
+	
+	public String hacerSonido() {
+		System.out.println("Guau");
+	}
+}
