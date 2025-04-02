@@ -6,6 +6,6 @@ public class Gato extends Animal implements Comunicable{
 	}
 	
 	public String hacerSonido() {
-		System.out.println("Miau");
+		return "Miau";
 	}
 }
