@@ -1,0 +1,21 @@
+<?php
+class Conexion {
+    private $servidor = 'localhost'; // Nombre del servidor de la BBDD
+    private $usuario = 'root'; // Nombre del usuario de la BBDD
+    private $password = 'curso'; // Nombre del contraseña de la BBDD
+    private $base_datos = 'gestion_tareas'; // Nombre de la BBDD
+    public $conexion;
+
+    public function __construct() {
+        $this->conexion = new mysqli($this->servidor, $this->usuario, $this->password, $this->base_datos);
+
+        if ($this->conexion->connect_error) {
+            die("Error de conexión: " . $this->conexion->connect_error);
+        }
+    }
+
+    public function cerrar() {
+        $this->conexion->close();
+    }
+}
+?>
